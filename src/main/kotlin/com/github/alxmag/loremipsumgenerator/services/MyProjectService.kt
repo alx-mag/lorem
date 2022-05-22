@@ -1,7 +1,7 @@
-package org.jetbrains.plugins.template.services
+package com.github.alxmag.loremipsumgenerator.services
 
 import com.intellij.openapi.project.Project
-import org.jetbrains.plugins.template.MyBundle
+import com.github.alxmag.loremipsumgenerator.MyBundle
 
 class MyProjectService(project: Project) {
 
