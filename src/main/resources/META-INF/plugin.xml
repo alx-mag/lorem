@@ -1,18 +1,46 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.alxmag.loremipsumgenerator</id>
-    <name>lorem-ipsum-generator</name>
+    <name>Lorem Ipsum Generator</name>
     <vendor>alx-mag</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
+    <resource-bundle>messages.MyBundle</resource-bundle>
+
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.alxmag.loremipsumgenerator.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.alxmag.loremipsumgenerator.services.MyProjectService"/>
+
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.alxmag.loremipsumgenerator.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    <actions>
+        <!--Sentence-->
+        <action class="com.github.alxmag.loremipsumgenerator.action.RandomSentenceActionShort"
+                id="lorem.SentenceShort"/>
+
+        <action class="com.github.alxmag.loremipsumgenerator.action.RandomSentenceActionMedium"
+                id="lorem.SentenceMedium"/>
+
+        <action class="com.github.alxmag.loremipsumgenerator.action.RandomSentenceActionLong"
+                id="lorem.SentenceLong"/>
+
+        <group id="lorem.SentenceActionGroup"
+               class="com.github.alxmag.loremipsumgenerator.action.SentenceActionGroup">
+            <reference id="lorem.SentenceShort"/>
+            <reference id="lorem.SentenceMedium"/>
+            <reference id="lorem.SentenceLong"/>
+            <separator/>
+        </group>
+        <!--/Sentence-->
+
+        <!-- Popup menu group -->
+        <group id="lorem.GeneratePopupGroup">
+            <reference id="lorem.SentenceActionGroup"/>
+        </group>
+
+        <!-- Main popup action -->
+        <action id="lorem.GeneratePopupAction" class="com.github.alxmag.loremipsumgenerator.generate.LoremGeneratePopUpAction">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+    </actions>
 </idea-plugin>
