@@ -1,4 +1,4 @@
-package com.github.alxmag.loremipsumgenerator.generate
+package com.github.alxmag.loremipsumgenerator.action.base
 
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DataContext
@@ -7,7 +7,10 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.actionSystem.EditorAction
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler
 
-abstract class LoremGenerateActionBase(handler: EditorActionHandler) : EditorAction(handler) {
+/**
+ * Base editor action for lorem text generation
+ */
+abstract class LoremActionBase(handler: EditorActionHandler) : EditorAction(handler) {
 
     // Finalize update to avoid accidental override
     final override fun update(e: AnActionEvent) {
@@ -20,7 +23,10 @@ abstract class LoremGenerateActionBase(handler: EditorActionHandler) : EditorAct
 
     }
 
-    open fun doUpdate(e: AnActionEvent) {
+    /**
+     * Override to customize [update] behaviour
+     */
+    protected open fun doUpdate(e: AnActionEvent) {
 
     }
 }

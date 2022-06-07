@@ -24,7 +24,7 @@
                 id="lorem.SentenceLong"/>
 
         <group id="lorem.SentenceActionGroup"
-               class="com.github.alxmag.loremipsumgenerator.action.SentenceActionGroup">
+               class="com.github.alxmag.loremipsumgenerator.action.LoremSentenceActionGroup">
             <reference id="lorem.SentenceShort"/>
             <reference id="lorem.SentenceMedium"/>
             <reference id="lorem.SentenceLong"/>
@@ -32,13 +32,32 @@
         </group>
         <!--/Sentence-->
 
+        <!-- Paragraph -->
+        <action class="com.github.alxmag.loremipsumgenerator.action.LoremShortParagraphAction"
+                id="lorem.ShortParagraph"/>
+
+        <action class="com.github.alxmag.loremipsumgenerator.action.LoremMediumParagraphAction"
+                id="lorem.MediumParagraph"/>
+
+        <action class="com.github.alxmag.loremipsumgenerator.action.LoremLongParagraphAction"
+                id="lorem.LongParagraph"/>
+
+        <group id="lorem.ParagraphActionGroup"
+               class="com.github.alxmag.loremipsumgenerator.action.LoremParagraphActionGroup">
+            <reference id="lorem.ShortParagraph"/>
+            <reference id="lorem.MediumParagraph"/>
+            <reference id="lorem.LongParagraph"/>
+        </group>
+        <!-- /Paragraph -->
+
         <!-- Popup menu group -->
         <group id="lorem.GeneratePopupGroup">
             <reference id="lorem.SentenceActionGroup"/>
+            <reference id="lorem.ParagraphActionGroup"/>
         </group>
 
         <!-- Main popup action -->
-        <action id="lorem.GeneratePopupAction" class="com.github.alxmag.loremipsumgenerator.generate.LoremGeneratePopUpAction">
+        <action id="lorem.GeneratePopupAction" class="com.github.alxmag.loremipsumgenerator.action.LoremGeneratePopUpAction">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>

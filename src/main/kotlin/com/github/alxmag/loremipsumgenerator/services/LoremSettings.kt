@@ -12,6 +12,10 @@ class LoremSettings {
     val mediumSentenceWords = 12
     val bigSentenceWords = 24
 
+    val smallParagraphSentences = 3
+    val regularParagraphSentences = 6
+    val longParagraphSentences = 12
+
     companion object {
         val instance = service<LoremSettings>()
     }

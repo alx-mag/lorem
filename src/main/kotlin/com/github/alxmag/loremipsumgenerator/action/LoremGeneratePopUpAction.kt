@@ -1,4 +1,4 @@
-package com.github.alxmag.loremipsumgenerator.generate
+package com.github.alxmag.loremipsumgenerator.action
 
 import com.intellij.openapi.actionSystem.ActionGroup
 import com.intellij.openapi.actionSystem.ActionManager
@@ -21,5 +21,8 @@ class LoremGeneratePopUpAction : AnAction() {
         null,
         10,
         null
-    ).showInBestPositionFor(e.dataContext)
+    ).also {
+        it.canClose()
+    }
+        .showInBestPositionFor(e.dataContext)
 }

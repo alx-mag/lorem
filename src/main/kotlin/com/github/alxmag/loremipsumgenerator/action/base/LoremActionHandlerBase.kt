@@ -1,4 +1,4 @@
-package com.github.alxmag.loremipsumgenerator.generate
+package com.github.alxmag.loremipsumgenerator.action.base
 
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
 import com.intellij.openapi.actionSystem.DataContext
@@ -10,7 +10,7 @@ import com.intellij.openapi.editor.actionSystem.EditorActionHandler
 /**
  * Base implementation for lorem generation actions
  */
-abstract class LoremGenerationActionHandlerBase : EditorActionHandler.ForEachCaret() {
+abstract class LoremActionHandlerBase : EditorActionHandler.ForEachCaret() {
 
     override fun doExecute(editor: Editor, caret: Caret, dataContext: DataContext?) {
         val project = editor.project ?: return

@@ -1,11 +1,12 @@
-package com.github.alxmag.loremipsumgenerator.generate
+package com.github.alxmag.loremipsumgenerator.action.base
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 
 /**
- * Base class for lorem action groups. This group is also executable action that delegates performance to [action].
+ * Base class for lorem action groups.
+ * This group is executable by delegating performance to provided [action].
  */
 abstract class LoremPerformableActionGroupBase(
     private val action: AnAction,
