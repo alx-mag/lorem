@@ -4,12 +4,11 @@ import com.github.alxmag.loremipsumgenerator.action.base.LoremActionBase
 import com.github.alxmag.loremipsumgenerator.action.base.LoremActionHandlerBase
 import com.github.alxmag.loremipsumgenerator.action.base.LoremPerformableActionGroupBase
 import com.github.alxmag.loremipsumgenerator.services.LoremIpsumService
-import com.github.alxmag.loremipsumgenerator.services.LoremSettings
 import com.github.alxmag.loremipsumgenerator.services.LoremModelStateService
+import com.github.alxmag.loremipsumgenerator.services.LoremSettings
 import com.github.alxmag.loremipsumgenerator.ui.LoremParagraphView
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
 import com.github.alxmag.loremipsumgenerator.util.LoremDialogCaller.showLoremDialog
-import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
 import com.github.alxmag.loremipsumgenerator.util.lipsum
 
 private val loremSettings = LoremSettings.instance
@@ -45,10 +44,7 @@ abstract class LoremParagraphHandler : LoremActionHandlerBase() {
                 ::LoremParagraphView
             ) ?: return null
 
-            return when (model.unit) {
-                TextAmountUnit.WORD -> LoremIpsumService.getInstance(project).getRandomSentenceOfWords(model.amount)
-                else -> TODO()
-            }
+            return LoremIpsumService.getInstance(project).getParagraph(model)
         }
     }
 }

@@ -1,10 +1,12 @@
 package com.github.alxmag.loremipsumgenerator.ui
 
+import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
 
 class LoremSentenceView(model: LoremSentenceModel) : LoremView<LoremSentenceModel>(
+    message("sentence.of"),
     model,
-    TextAmountUnit.CHARACTER,
+//    TextAmountUnit.CHARACTER,
     TextAmountUnit.WORD
 ) {
 
