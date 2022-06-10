@@ -1,32 +1,34 @@
 package com.github.alxmag.loremipsumgenerator.services
 
 import com.github.alxmag.loremipsumgenerator.lorem.LoremEx
-import com.github.alxmag.loremipsumgenerator.ui.LoremParagraphModel
+import com.github.alxmag.loremipsumgenerator.model.LoremParagraphModel
 import com.github.alxmag.loremipsumgenerator.util.RandomUtils
+import com.github.alxmag.loremipsumgenerator.util.RandomUtils.getRandomIntBetween
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
-import lorem.Lorem
 import lorem.LoremIpsum
 import java.util.*
 
 @Service(Service.Level.PROJECT)
-class LoremIpsumService : Lorem by LoremIpsum.getInstance(), LoremEx {
+class LoremIpsumService : LoremIpsum("/lorem"), LoremEx {
 
     private val loremSettings = LoremSettings.instance
 
     override fun getRandomSentence(): String = getWords(loremSettings.randomSentenceWordsNumber).toSentence()
 
     override fun getParagraph(paragraphModel: LoremParagraphModel) = when (paragraphModel.unit) {
-        TextAmountUnit.SENTENCE -> sequence {
-            repeat(paragraphModel.amount) {
-                val sentence = getRandomSentenceOfWords(5, 8)
-                yield(sentence)
-            }
-        }.joinToString(" ")
-        TextAmountUnit.WORD -> RandomUtils.numberToTerms(paragraphModel.amount, 5, 8)
-            .joinToString(" ", transform = ::getRandomSentenceOfWords)
+        TextAmountUnit.SENTENCE -> (1 .. paragraphModel.amount).map {
+            getRandomIntBetween(paragraphModel.wordsPerSentence.min, paragraphModel.wordsPerSentence.max)
+        }.joinToString(separator = " ", transform = ::getRandomSentenceOfWords)
+
+        TextAmountUnit.WORD -> RandomUtils.numberToTerms(
+            paragraphModel.amount,
+            paragraphModel.wordsPerSentence.min,
+            paragraphModel.wordsPerSentence.max
+        ).joinToString(separator = " ", transform = ::getRandomSentenceOfWords)
+
         else -> throw UnsupportedOperationException("Unsupported unit ${paragraphModel.unit}")
     }
 
@@ -34,10 +36,10 @@ class LoremIpsumService : Lorem by LoremIpsum.getInstance(), LoremEx {
         val words = when {
             minWords == maxWords -> minWords
             minWords > maxWords -> throw IllegalArgumentException("Min size must not be more than max size")
-            else -> Random().nextInt(maxWords - minWords) + minWords
+            else -> getRandomIntBetween(minWords, maxWords)
         }
 
-        return getWords(words).toSentence()
+        return getWords(words, false).toSentence()
     }
 
     private fun String.toSentence() = withDot().withCapitalization()

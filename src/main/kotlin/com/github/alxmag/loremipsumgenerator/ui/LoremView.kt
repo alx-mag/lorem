@@ -1,22 +1,20 @@
 package com.github.alxmag.loremipsumgenerator.ui
 
+import com.github.alxmag.loremipsumgenerator.services.LoremModel
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
 import com.intellij.openapi.observable.properties.PropertyGraph
 import com.intellij.ui.dsl.builder.*
-import org.jetbrains.annotations.Nls
 import java.util.*
 import javax.swing.JComboBox
 
-abstract class LoremView<T : LoremModel>(
-    @Nls(capitalization = Nls.Capitalization.Sentence) private val label: String,
-    initialModel: T,
-    private val availableUnits: List<TextAmountUnit>
-) {
+abstract class LoremView<T : LoremModel>(protected val initialModel: T) {
 
-    constructor(label: String, initialModel: T, vararg availableUnits: TextAmountUnit) : this(label, initialModel, availableUnits.toList())
+    protected abstract val label: String
+    protected abstract val availableUnits: List<TextAmountUnit>
 
     protected val propertyGraph = PropertyGraph()
-    protected val amountProp = propertyGraph.property(initialModel.amount)
+    protected val amountProp =
+        propertyGraph.property(initialModel.amount)
     protected val amountUnitProp = propertyGraph.property(initialModel.unit)
     protected val commentProp = propertyGraph.property("")
 
@@ -33,6 +31,7 @@ abstract class LoremView<T : LoremModel>(
                 availableUnits.size < 2 -> label(availableUnits.first().visibleName.replaceFirstChar {
                     it.lowercase(Locale.getDefault())
                 })
+
                 else -> {
                     amountUnitCombo = comboBox(availableUnits, TextAmountUnit.ListCellRenderer())
                         .bindItem(amountUnitProp)
@@ -51,7 +50,3 @@ abstract class LoremView<T : LoremModel>(
     abstract fun createModel(): T
 }
 
-interface LoremModel {
-    var amount: Int
-    var unit: TextAmountUnit
-}

@@ -45,10 +45,11 @@ public class LoremIpsum implements Lorem {
 	 * 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/' | sort | \
 	 * uniq > lorem.txt.2
 	 */
-	private static LoremIpsum instance;
+
+	private final String resourcesPath;
 
 	private final List<String> words;
-	private final Random random;
+	protected final Random random;
 	private final List<String> maleNames;
 	private final List<String> femaleNames;
 	private final List<String> surnames;
@@ -63,26 +64,16 @@ public class LoremIpsum implements Lorem {
 			"https://search.yahoo.com/search?p=%s",
 			"https://duckduckgo.com/?q=%s" };
 
-	public static LoremIpsum getInstance() {
-		if (instance == null) {
-			synchronized (LoremIpsum.class) {
-				if (instance == null) {
-					instance = new LoremIpsum(new Random());
-				}
-			}
-		}
-		return instance;
-	}
-
-	public LoremIpsum() {
-		this(new Random());
+	public LoremIpsum(String resourcesPath) {
+		this(resourcesPath, new Random());
 	}
 	
-	public LoremIpsum(Long seed) {
-		this(seed == null ? new Random() : new Random(seed));
+	public LoremIpsum(Long seed, String resourcesPath) {
+		this(resourcesPath, seed == null ? new Random() : new Random(seed));
 	}
 
-	public LoremIpsum(Random random) {
+	public LoremIpsum(String resourcesPath, Random random) {
+		this.resourcesPath = resourcesPath;
 		this.random = random;
 		
 		words = readLines("lorem.txt");
@@ -103,7 +94,7 @@ public class LoremIpsum implements Lorem {
 		List<String> ret = new ArrayList<>();
 		BufferedReader br = null;
 		try {
-			InputStream resourceAsStream = getClass().getResourceAsStream(file);
+			InputStream resourceAsStream = getClass().getResourceAsStream(resourcesPath + "/" + file);
 			if (resourceAsStream == null) throw new IllegalStateException("File not found");
 			br = new BufferedReader(new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8));
 			String line;
@@ -338,7 +329,7 @@ public class LoremIpsum implements Lorem {
 		return getWords(min, max, false);
 	}
 
-	private String getWords(int count, boolean title) {
+	protected String getWords(int count, boolean title) {
 		StringBuilder sb = new StringBuilder();
 		int size = words.size();
 		int wordCount = 0;

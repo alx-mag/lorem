@@ -1,6 +1,7 @@
 package com.github.alxmag.loremipsumgenerator.util
 
 import java.util.*
+import java.util.concurrent.ThreadLocalRandom
 
 object RandomUtils {
     fun numberToTerms(sum: Int, termMin: Int, termMax: Int): List<Int> {
@@ -20,5 +21,10 @@ object RandomUtils {
             remainSize -= nextSize
         }
         return result
+    }
+
+    fun getRandomIntBetween(min: Int, max: Int): Int {
+        require(max >= min)
+        return ThreadLocalRandom.current().nextInt(min, max + 1)
     }
 }

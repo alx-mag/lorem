@@ -1,5 +1,6 @@
 package com.github.alxmag.loremipsumgenerator.util
 
+import com.github.alxmag.loremipsumgenerator.services.LoremModel
 import com.github.alxmag.loremipsumgenerator.ui.*
 import com.intellij.openapi.project.Project
 import kotlin.reflect.KMutableProperty0

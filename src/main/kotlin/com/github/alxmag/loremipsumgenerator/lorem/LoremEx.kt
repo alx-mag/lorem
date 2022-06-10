@@ -1,6 +1,6 @@
 package com.github.alxmag.loremipsumgenerator.lorem
 
-import com.github.alxmag.loremipsumgenerator.ui.LoremParagraphModel
+import com.github.alxmag.loremipsumgenerator.model.LoremParagraphModel
 
 interface LoremEx {
     fun getRandomSentence(): String

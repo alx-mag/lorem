@@ -1,7 +1,7 @@
 package com.github.alxmag.loremipsumgenerator.services
 
-import com.github.alxmag.loremipsumgenerator.ui.LoremParagraphModel
-import com.github.alxmag.loremipsumgenerator.ui.LoremSentenceModel
+import com.github.alxmag.loremipsumgenerator.model.LoremParagraphModel
+import com.github.alxmag.loremipsumgenerator.model.LoremSentenceModel
 import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
 
