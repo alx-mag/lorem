@@ -1,6 +1,5 @@
 package com.github.alxmag.loremipsumgenerator.model
 
-import com.github.alxmag.loremipsumgenerator.services.LoremModel
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
 
 class LoremSentenceModel(override var amount: Int, override var unit: TextAmountUnit) : LoremModel {

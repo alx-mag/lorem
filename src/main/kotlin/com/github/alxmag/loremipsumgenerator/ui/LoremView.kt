@@ -1,6 +1,6 @@
 package com.github.alxmag.loremipsumgenerator.ui
 
-import com.github.alxmag.loremipsumgenerator.services.LoremModel
+import com.github.alxmag.loremipsumgenerator.model.LoremModel
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
 import com.intellij.openapi.observable.properties.PropertyGraph
 import com.intellij.ui.dsl.builder.*

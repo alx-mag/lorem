@@ -1,7 +1,7 @@
 package com.github.alxmag.loremipsumgenerator.ui
 
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
-import com.github.alxmag.loremipsumgenerator.services.LoremModel
+import com.github.alxmag.loremipsumgenerator.model.LoremModel
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
 import javax.swing.JComponent

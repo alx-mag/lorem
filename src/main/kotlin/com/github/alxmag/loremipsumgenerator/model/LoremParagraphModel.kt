@@ -1,6 +1,5 @@
 package com.github.alxmag.loremipsumgenerator.model
 
-import com.github.alxmag.loremipsumgenerator.services.LoremModel
 import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
 

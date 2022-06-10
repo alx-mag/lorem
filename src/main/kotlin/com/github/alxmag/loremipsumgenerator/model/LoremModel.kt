@@ -1,4 +1,4 @@
-package com.github.alxmag.loremipsumgenerator.services
+package com.github.alxmag.loremipsumgenerator.model
 
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
 
