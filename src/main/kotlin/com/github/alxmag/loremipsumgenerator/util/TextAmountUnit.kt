@@ -11,6 +11,8 @@ enum class TextAmountUnit(@Nls(capitalization = Sentence) val visibleName: Strin
     SENTENCE("Sentences"),
     PARAGRAPH("Paragraphs");
 
+    fun visibleNameLabel() = visibleName.lowercase()
+
     class ListCellRenderer : ColoredListCellRenderer<TextAmountUnit>() {
         override fun customizeCellRenderer(
             list: JList<out TextAmountUnit>,

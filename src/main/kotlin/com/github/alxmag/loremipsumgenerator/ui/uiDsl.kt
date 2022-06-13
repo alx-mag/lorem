@@ -3,10 +3,12 @@ package com.github.alxmag.loremipsumgenerator.ui
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.services.LoremSettings
 import com.github.alxmag.loremipsumgenerator.util.MinMax
-import com.intellij.openapi.observable.properties.GraphProperty
+import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
+import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.JBIntSpinner
 import com.intellij.ui.dsl.builder.*
 import org.jetbrains.annotations.Nls
+import kotlin.reflect.KMutableProperty0
 
 fun Row.minMaxComponents(
     range: IntRange,
@@ -53,7 +55,28 @@ fun Panel.sentencesPerParagraphRow(minMax: MinMax) = minMaxRow(
     minMax
 )
 
-fun <T : JBIntSpinner> Cell<T>.bindIntProperty(prop: GraphProperty<Int>) = bindIntValue(prop::get, prop::set)
+inline fun Panel.textAmountRow(
+    @Nls(capitalization = Nls.Capitalization.Sentence) label: String,
+    amountProp: KMutableProperty0<Int>,
+    unitProp: KMutableProperty0<TextAmountUnit>,
+    availableUnits: List<TextAmountUnit>,
+    crossinline configureAmountSpinner: (Cell<JBIntSpinner>) -> Unit,
+    crossinline configureUnitCombo: (Cell<ComboBox<TextAmountUnit>>) -> Unit
+) = row {
+    label("$label:").gap(RightGap.SMALL)
+    spinner((1..1000), 1)
+        .bindIntValue(amountProp)
+        .focused()
+        .gap(RightGap.SMALL)
+        .also(configureAmountSpinner)
+    when (availableUnits.size) {
+        0 -> throw IllegalArgumentException("Amount units are empty")
+        1 -> label(availableUnits.first().visibleNameLabel())
+        else -> comboBox(availableUnits, TextAmountUnit.ListCellRenderer())
+            .bindItem(unitProp.toNullableProperty())
+            .also(configureUnitCombo)
+    }
+}
 
 fun Panel.advancedSettings(block: Panel.() -> Unit) = collapsibleGroup(message("advanced.settings.title")) {
     block()
