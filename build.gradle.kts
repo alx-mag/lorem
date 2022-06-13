@@ -9,7 +9,7 @@ plugins {
     // Kotlin support
     id("org.jetbrains.kotlin.jvm") version "1.6.10"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.6.0"
+    id("org.jetbrains.intellij") version "1.7.0-SNAPSHOT"
     // Gradle Changelog Plugin
     id("org.jetbrains.changelog") version "1.3.1"
     // Gradle Qodana Plugin
@@ -92,6 +92,12 @@ tasks {
                 getOrNull(properties("pluginVersion")) ?: getLatest()
             }.toHTML()
         })
+
+        val test by getting(Test::class) {
+            setScanForTestClasses(false)
+            // Only run tests from classes that end with "Test"
+            include("**/*Test.class")
+        }
     }
 
     // Configure UI tests plugin

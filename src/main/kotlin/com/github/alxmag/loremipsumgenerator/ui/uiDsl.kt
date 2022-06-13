@@ -4,9 +4,11 @@ import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.services.LoremSettings
 import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
+import com.intellij.openapi.observable.properties.ObservableMutableProperty
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.JBIntSpinner
 import com.intellij.ui.dsl.builder.*
+import com.intellij.ui.dsl.gridLayout.HorizontalAlign
 import org.jetbrains.annotations.Nls
 import kotlin.reflect.KMutableProperty0
 
@@ -55,6 +57,9 @@ fun Panel.sentencesPerParagraphRow(minMax: MinMax) = minMaxRow(
     minMax
 )
 
+/**
+ * Example: `Sentence of: 10 Words`
+ */
 inline fun Panel.textAmountRow(
     @Nls(capitalization = Nls.Capitalization.Sentence) label: String,
     amountProp: KMutableProperty0<Int>,
@@ -76,6 +81,13 @@ inline fun Panel.textAmountRow(
             .bindItem(unitProp.toNullableProperty())
             .also(configureUnitCombo)
     }
+}
+
+fun Panel.otherUnitsHintRow(amountProp: ObservableMutableProperty<Int>, unit: TextAmountUnit) = row {
+    cell()
+    comment("").horizontalAlign(HorizontalAlign.RIGHT)
+        .bindIntText(amountProp)
+    comment(unit.visibleNameLabel())
 }
 
 fun Panel.advancedSettings(block: Panel.() -> Unit) = collapsibleGroup(message("advanced.settings.title")) {

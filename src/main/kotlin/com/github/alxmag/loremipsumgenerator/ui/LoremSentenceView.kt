@@ -14,7 +14,7 @@ class LoremSentenceView(initialModel: LoremSentenceModel) : LoremView<LoremSente
             initialModel::amount,
             initialModel::unit,
             listOf(TextAmountUnit.WORD),
-            configureAmountSpinner = {},
+            configureAmountSpinner = { },
             configureUnitCombo = { }
         )
     }
