@@ -16,6 +16,9 @@ class LoremSettings {
     val regularParagraphSentences = 6
     val longParagraphSentences = 12
 
+    val wordsPerSentenceRange = (1 .. 9999)
+    val sentencesPerParagraphRange = (1 .. 9999)
+
     companion object {
         val instance = service<LoremSettings>()
     }
