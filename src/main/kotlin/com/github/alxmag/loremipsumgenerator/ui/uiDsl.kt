@@ -68,8 +68,8 @@ inline fun Panel.textAmountRow(
     crossinline configureAmountSpinner: (Cell<JBIntSpinner>) -> Unit,
     crossinline configureUnitCombo: (Cell<ComboBox<TextAmountUnit>>) -> Unit
 ) = row {
-    label("$label:").gap(RightGap.SMALL)
-    spinner((1..1000), 1)
+    label(label).gap(RightGap.SMALL)
+    spinner(LoremSettings.instance.commonTextAmountRange, 1)
         .bindIntValue(amountProp)
         .focused()
         .gap(RightGap.SMALL)
@@ -83,11 +83,12 @@ inline fun Panel.textAmountRow(
     }
 }
 
-fun Panel.otherUnitsHintRow(amountProp: ObservableMutableProperty<Int>, unit: TextAmountUnit) = row {
+fun Panel.otherUnitsHintRow(amountProp: ObservableMutableProperty<String>, unit: TextAmountUnit) = row {
     cell()
     comment("").horizontalAlign(HorizontalAlign.RIGHT)
-        .bindIntText(amountProp)
-    comment(unit.visibleNameLabel())
+        .bindText(amountProp)
+        .gap(RightGap.SMALL)
+    comment(unit.visibleName)
 }
 
 fun Panel.advancedSettings(block: Panel.() -> Unit) = collapsibleGroup(message("advanced.settings.title")) {

@@ -13,5 +13,9 @@ open class LoremParagraphModel(
      * Need no-args constructor for serialization purpose
      */
     @Suppress("unused")
-    constructor() : this(5, TextAmountUnit.SENTENCE, MinMax(5, 10))
+    constructor() : this(
+        5,
+        TextAmountUnit.SENTENCE,
+        MinMax(5, 10)
+    )
 }

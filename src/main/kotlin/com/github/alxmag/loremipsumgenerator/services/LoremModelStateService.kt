@@ -6,7 +6,7 @@ import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
 
 /**
- * Persists [com.github.alxmag.loremipsumgenerator.ui.LoremModel] instances for dialogs
+ * Persists [com.github.alxmag.loremipsumgenerator.model.LoremModel] instances for dialogs
  */
 @State(name = "LoremUnits", storages = [Storage("lorem-generator.xml")])
 @Service

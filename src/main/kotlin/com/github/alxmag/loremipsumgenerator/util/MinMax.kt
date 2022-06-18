@@ -26,4 +26,15 @@ data class MinMax(var min: Int, var max: Int) {
     }
 
     override fun toString(): String = "min=$min, max=$max"
+
+    fun isRange() = min != max
+
+    fun toPresentableString() = when {
+        isRange() -> "$min - $max"
+        else -> min.toString()
+    }
+
+    operator fun times(other: MinMax): MinMax = map(other, Int::times)
+
+    operator fun div(other: MinMax): MinMax = map(other, Int::divRoundUp)
 }

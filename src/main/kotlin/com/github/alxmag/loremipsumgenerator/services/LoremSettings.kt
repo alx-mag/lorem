@@ -16,6 +16,7 @@ class LoremSettings {
     val regularParagraphSentences = 6
     val longParagraphSentences = 12
 
+    val commonTextAmountRange = (1 .. 1000_000)
     val wordsPerSentenceRange = (1 .. 9999)
     val sentencesPerParagraphRange = (1 .. 9999)
 
