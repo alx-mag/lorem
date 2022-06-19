@@ -2,6 +2,7 @@ package com.github.alxmag.loremipsumgenerator.ui
 
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.services.LoremSettings
+import com.github.alxmag.loremipsumgenerator.util.ListCellRendererFactory
 import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
 import com.intellij.openapi.observable.properties.ObservableMutableProperty
@@ -77,7 +78,7 @@ inline fun Panel.textAmountRow(
     when (availableUnits.size) {
         0 -> throw IllegalArgumentException("Amount units are empty")
         1 -> label(availableUnits.first().visibleNameLabel())
-        else -> comboBox(availableUnits, TextAmountUnit.ListCellRenderer())
+        else -> comboBox(availableUnits, ListCellRendererFactory.simpleRenderer { it.visibleName(true) })
             .bindItem(unitProp.toNullableProperty())
             .also(configureUnitCombo)
     }
@@ -85,10 +86,11 @@ inline fun Panel.textAmountRow(
 
 fun Panel.otherUnitsHintRow(amountProp: ObservableMutableProperty<String>, unit: TextAmountUnit) = row {
     cell()
+    cell()
     comment("").horizontalAlign(HorizontalAlign.RIGHT)
         .bindText(amountProp)
         .gap(RightGap.SMALL)
-    comment(unit.visibleName)
+    comment(unit.visibleName(true))
 }
 
 fun Panel.advancedSettings(block: Panel.() -> Unit) = collapsibleGroup(message("advanced.settings.title")) {
