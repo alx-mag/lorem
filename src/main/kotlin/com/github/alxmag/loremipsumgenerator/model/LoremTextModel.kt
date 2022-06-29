@@ -5,4 +5,11 @@ import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
 class LoremTextModel(
     override var unit: TextAmountUnit,
     override var amount: Int
-) : LoremModel
+) : LoremModel {
+
+    /**
+     * Need no-args constructor for serialization purpose
+     */
+    @Suppress("unused")
+    constructor() : this(TextAmountUnit.SENTENCE, 5)
+}

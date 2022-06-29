@@ -4,14 +4,13 @@ import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.action.base.LoremActionBase
 import com.github.alxmag.loremipsumgenerator.action.base.LoremActionHandlerBase
 import com.github.alxmag.loremipsumgenerator.action.base.LoremPerformableActionGroupBase
-import com.github.alxmag.loremipsumgenerator.model.LoremTextModel
 import com.github.alxmag.loremipsumgenerator.services.LoremIpsumService
+import com.github.alxmag.loremipsumgenerator.services.LoremModelStateService
 import com.github.alxmag.loremipsumgenerator.test.PlaceHolderAction
+import com.github.alxmag.loremipsumgenerator.ui.GeneratePlaceholderTextDialog
 import com.github.alxmag.loremipsumgenerator.ui.LoremTextView
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
-import com.github.alxmag.loremipsumgenerator.util.LoremDialogCaller.showLoremDialog
-import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
-import com.intellij.openapi.actionSystem.AnAction
+import com.github.alxmag.loremipsumgenerator.util.takeIfOk
 import com.intellij.openapi.actionSystem.Separator
 
 class LoremTextActionGroup : LoremPerformableActionGroupBase(
@@ -23,12 +22,17 @@ class LoremTextActionGroup : LoremPerformableActionGroupBase(
 class LoremTextAction : LoremActionBase(GenerateSentenceHandler())
 
 class GenerateSentenceHandler : LoremActionHandlerBase() {
-    var model = LoremTextModel(TextAmountUnit.PARAGRAPH, 5)
     override fun createText(editorContext: EditorContext): String? {
-        val model = showLoremDialog(editorContext.project, ::model, ::LoremTextView)
+        val modelStateProp = LoremModelStateService.getInstance()::loremTextModel
+        val model = GeneratePlaceholderTextDialog(
+            editorContext.project,
+            LoremTextView(modelStateProp.get())
+        )
+            .takeIfOk()
+            ?.getModel()
             ?: return null
 
+        modelStateProp.set(model)
         return LoremIpsumService.getInstance(editorContext.project).generateText(model)
     }
-
 }

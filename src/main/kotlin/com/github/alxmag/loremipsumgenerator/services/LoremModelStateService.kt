@@ -1,5 +1,6 @@
 package com.github.alxmag.loremipsumgenerator.services
 
+import com.github.alxmag.loremipsumgenerator.model.LoremTextModel
 import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
@@ -10,6 +11,8 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 @State(name = "LoremUnits", storages = [Storage("lorem-generator.xml")])
 @Service
 class LoremModelStateService : PersistentStateComponent<LoremModelStateService> {
+
+    var loremTextModel: LoremTextModel = LoremTextModel()
 
     var wordsPerSentence = MinMax(5, 10)
     var sentencesPerParagraph = MinMax(5, 10)
