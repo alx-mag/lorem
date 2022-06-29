@@ -2,9 +2,12 @@ package com.github.alxmag.loremipsumgenerator.services
 
 import com.github.alxmag.loremipsumgenerator.lorem.LoremEx
 import com.github.alxmag.loremipsumgenerator.model.LoremParagraphModel
+import com.github.alxmag.loremipsumgenerator.model.LoremTextModel
+import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.github.alxmag.loremipsumgenerator.util.RandomUtils
 import com.github.alxmag.loremipsumgenerator.util.RandomUtils.getRandomIntBetween
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
+import com.github.alxmag.loremipsumgenerator.util.randomBetween
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
@@ -15,11 +18,27 @@ import java.util.*
 class LoremIpsumService : LoremIpsum("/lorem"), LoremEx {
 
     private val loremSettings = LoremSettings.instance
+    private val loremModelStateService = LoremModelStateService.getInstance()
+
+    fun generateText(model: LoremTextModel) = when (model.unit) {
+        TextAmountUnit.WORD -> getWords(model.amount)
+        TextAmountUnit.SENTENCE -> _sentences(model.amount)
+        else -> throw UnsupportedOperationException()
+    }
+
+    private fun _sentence() = getRandomSentenceOfWords(loremModelStateService.wordsPerSentence)
+    private fun _sentences(sentences: Int) = (1..sentences).joinToString(" ") {
+        _sentence()
+    }
+
+    private fun _paragraphs(paragraphs: Int) = (1..paragraphs).joinToString("\n") {
+        _sentences(loremModelStateService.sentencesPerParagraph.randomBetween())
+    }
 
     override fun getRandomSentence(): String = getWords(loremSettings.randomSentenceWordsNumber).toSentence()
 
     override fun getParagraph(paragraphModel: LoremParagraphModel) = when (paragraphModel.unit) {
-        TextAmountUnit.SENTENCE -> (1 .. paragraphModel.amount).map {
+        TextAmountUnit.SENTENCE -> (1..paragraphModel.amount).map {
             getRandomIntBetween(paragraphModel.wordsPerSentence.min, paragraphModel.wordsPerSentence.max)
         }.joinToString(separator = " ", transform = ::getRandomSentenceOfWords)
 
@@ -41,6 +60,8 @@ class LoremIpsumService : LoremIpsum("/lorem"), LoremEx {
 
         return getWords(words, false).toSentence()
     }
+
+    private fun getRandomSentenceOfWords(words: MinMax) = getRandomSentenceOfWords(words.min, words.max)
 
     private fun String.toSentence() = withDot().withCapitalization()
 

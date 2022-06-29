@@ -28,3 +28,5 @@ object RandomUtils {
         return ThreadLocalRandom.current().nextInt(min, max + 1)
     }
 }
+
+fun MinMax.randomBetween() = RandomUtils.getRandomIntBetween(min, max)

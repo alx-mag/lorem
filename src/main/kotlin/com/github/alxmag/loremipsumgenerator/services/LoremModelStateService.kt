@@ -1,7 +1,6 @@
 package com.github.alxmag.loremipsumgenerator.services
 
-import com.github.alxmag.loremipsumgenerator.model.LoremParagraphModel
-import com.github.alxmag.loremipsumgenerator.model.LoremSentenceModel
+import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
 
@@ -12,8 +11,8 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 @Service
 class LoremModelStateService : PersistentStateComponent<LoremModelStateService> {
 
-    var paragraph = LoremParagraphModel()
-    var sentence = LoremSentenceModel()
+    var wordsPerSentence = MinMax(5, 10)
+    var sentencesPerParagraph = MinMax(5, 10)
 
     override fun getState() = this
     override fun loadState(state: LoremModelStateService) {

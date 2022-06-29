@@ -10,26 +10,18 @@ import com.intellij.openapi.ui.DialogPanel
 import com.intellij.ui.JBIntSpinner
 import com.intellij.ui.dsl.builder.*
 import com.intellij.ui.dsl.gridLayout.HorizontalAlign
+import com.intellij.ui.dsl.gridLayout.VerticalGaps
 import com.intellij.ui.layout.selectedValueMatches
 
 class LoremTextView(initialModel: LoremTextModel) : LoremView<LoremTextModel>(initialModel) {
 
     private val graph = PropertyGraph()
 
-    private val units = listOf(
-        TextAmountUnit.PARAGRAPH,
-        TextAmountUnit.SENTENCE,
-    )
-
     private val amountUnits = listOf(
-        TextAmountUnit.PARAGRAPH,
         TextAmountUnit.SENTENCE,
         TextAmountUnit.WORD
     )
 
-    private val unitProp = graph.property(initialModel.unit)
-
-    private lateinit var unitCombo: ComboBox<TextAmountUnit>
     private lateinit var amountSpinner: JBIntSpinner
     private lateinit var amountUnitCombo: ComboBox<TextAmountUnit>
 
@@ -37,17 +29,7 @@ class LoremTextView(initialModel: LoremTextModel) : LoremView<LoremTextModel>(in
 
     override fun createComponent(): DialogPanel = panel {
         row {
-            comboBox(units, simpleRenderer { it.visibleName(false) })
-                .bindItem(unitProp)
-                .smallRightGap()
-                .applyToComponent {
-                    unitCombo = this
-                    addItemListener {
-                        onUnitChanged()
-                    }
-                }
-            @Suppress("DialogTitleCapitalization")
-            label("of:")
+            label("Text of:")
             spinner(LoremSettings.instance.commonTextAmountRange, 1)
                 .bindIntValue(initialModel::amount)
                 .focused()
@@ -59,8 +41,7 @@ class LoremTextView(initialModel: LoremTextModel) : LoremView<LoremTextModel>(in
                     }
                 }
             comboBox(amountUnits, simpleRenderer { it.visibleName(true) })
-                .bindItem(initialModel::ofUnit.toNullableProperty())
-                .horizontalAlign(HorizontalAlign.FILL)
+                .bindItem(initialModel::unit.toNullableProperty())
                 .applyToComponent {
                     amountUnitCombo = this
                     addItemListener {
@@ -69,27 +50,11 @@ class LoremTextView(initialModel: LoremTextModel) : LoremView<LoremTextModel>(in
                 }
         }.layout(RowLayout.PARENT_GRID)
 
+        separator().customize(VerticalGaps.EMPTY)
+
         createTextAmountHints()
     }.also {
         applyTextAmountChangeCallbacks()
-    }
-
-    private fun onUnitChanged() {
-        amountUnitCombo.apply {
-            // Compute amount units that can be used with selected unit
-            val amountUnits = unitCombo.item
-                ?.let(::getAmountUnits)
-                ?.filter(amountUnits::contains)
-                ?.sortedDescending()
-                ?: return
-
-            // Update combo box model
-            removeAllItems()
-            amountUnits.forEach(::addItem)
-
-            // Disable comboBox if there is only single option
-            isEnabled = itemCount > 1
-        }
     }
 
 
@@ -118,16 +83,12 @@ class LoremTextView(initialModel: LoremTextModel) : LoremView<LoremTextModel>(in
             }
 
             // Show the row if it represents any of amount unit of selected unit
-            val visibilityPredicate = amountUnitCombo.selectedValueMatches {
-                val unit = unitCombo.item
-                unit != null
-                        && getAmountUnits(unit).contains(amountUnit)
-                        && it != amountUnit
-                        && unit != amountUnit
+            val visibilityPredicate = amountUnitCombo.selectedValueMatches { parentAmount ->
+                val visibleSubUnits = parentAmount?.let(::getSubUnits) ?: emptyList()
+                visibleSubUnits.contains(amountUnit)
             }
 
             row {
-                cell()
                 cell()
                 comment("").horizontalAlign(HorizontalAlign.RIGHT)
                     .bindText(amountProp)
@@ -140,7 +101,7 @@ class LoremTextView(initialModel: LoremTextModel) : LoremView<LoremTextModel>(in
         }
     }
 
-    private fun getAmountUnits(unit: TextAmountUnit) = unit.getAmountUnits()
+    private fun getSubUnits(unit: TextAmountUnit) = unit.getSubUnits()
 
     private fun getConverterData() = ConverterData.create(
         Triple(TextAmountUnit.PARAGRAPH, TextAmountUnit.SENTENCE, MinMax(5, 10)),

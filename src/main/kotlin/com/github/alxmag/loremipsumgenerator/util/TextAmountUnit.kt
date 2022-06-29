@@ -25,4 +25,4 @@ enum class TextAmountUnit(@Nls(capitalization = Sentence) val visibleName: Strin
 fun TextAmountUnit.requireChildUnit() = childUnit() ?: throw IllegalStateException("Unit $this have no children")
 fun TextAmountUnit.requireParentUnit() = parentUnit() ?: throw IllegalStateException("Unit $this have no parents")
 
-fun TextAmountUnit.getAmountUnits() = TextAmountUnit.values().filter { it < this }
+fun TextAmountUnit.getSubUnits() = TextAmountUnit.values().filter { it < this }
