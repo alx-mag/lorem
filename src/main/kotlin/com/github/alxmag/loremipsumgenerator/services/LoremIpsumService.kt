@@ -18,7 +18,7 @@ import java.util.*
 class LoremIpsumService : LoremIpsum("/lorem"), LoremEx {
 
     private val loremSettings = LoremSettings.instance
-    private val loremModelStateService = LoremModelStateService.getInstance()
+    private val loremHistoryService = LoremHistoryService.getInstance()
 
     fun generateText(model: LoremTextModel) = when (model.unit) {
         TextAmountUnit.WORD -> getWords(model.amount)
@@ -26,13 +26,13 @@ class LoremIpsumService : LoremIpsum("/lorem"), LoremEx {
         else -> throw UnsupportedOperationException()
     }
 
-    private fun _sentence() = getRandomSentenceOfWords(loremModelStateService.wordsPerSentence)
+    private fun _sentence() = getRandomSentenceOfWords(loremHistoryService.wordsPerSentence)
     private fun _sentences(sentences: Int) = (1..sentences).joinToString(" ") {
         _sentence()
     }
 
     private fun _paragraphs(paragraphs: Int) = (1..paragraphs).joinToString("\n") {
-        _sentences(loremModelStateService.sentencesPerParagraph.randomBetween())
+        _sentences(loremHistoryService.sentencesPerParagraph.randomBetween())
     }
 
     override fun getRandomSentence(): String = getWords(loremSettings.randomSentenceWordsNumber).toSentence()

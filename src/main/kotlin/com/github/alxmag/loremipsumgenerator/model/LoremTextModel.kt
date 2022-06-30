@@ -2,10 +2,7 @@ package com.github.alxmag.loremipsumgenerator.model
 
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
 
-class LoremTextModel(
-    override var unit: TextAmountUnit,
-    override var amount: Int
-) : LoremModel {
+data class LoremTextModel(var unit: TextAmountUnit, var amount: Int) {
 
     /**
      * Need no-args constructor for serialization purpose

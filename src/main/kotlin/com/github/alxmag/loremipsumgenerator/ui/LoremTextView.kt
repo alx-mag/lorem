@@ -4,7 +4,6 @@ import com.github.alxmag.loremipsumgenerator.model.LoremTextModel
 import com.github.alxmag.loremipsumgenerator.services.LoremSettings
 import com.github.alxmag.loremipsumgenerator.util.*
 import com.github.alxmag.loremipsumgenerator.util.ListCellRendererFactory.simpleRenderer
-import com.intellij.openapi.observable.properties.PropertyGraph
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.DialogPanel
 import com.intellij.ui.JBIntSpinner
@@ -13,9 +12,9 @@ import com.intellij.ui.dsl.gridLayout.HorizontalAlign
 import com.intellij.ui.dsl.gridLayout.VerticalGaps
 import com.intellij.ui.layout.selectedValueMatches
 
-class LoremTextView(initialModel: LoremTextModel) : LoremView<LoremTextModel>(initialModel) {
+class LoremTextView(initialModel: LoremTextModel) {
 
-    private val graph = PropertyGraph()
+    private val vm = ViewModel(initialModel)
 
     private val amountUnits = listOf(
         TextAmountUnit.SENTENCE,
@@ -27,11 +26,13 @@ class LoremTextView(initialModel: LoremTextModel) : LoremView<LoremTextModel>(in
 
     private val textAmountChangedCallbacks: MutableList<() -> Unit> = mutableListOf()
 
-    override fun createComponent(): DialogPanel = panel {
+    val panel by lazy(::createPanel)
+
+    private fun createPanel(): DialogPanel = panel {
         row {
             label("Text of:")
             spinner(LoremSettings.instance.commonTextAmountRange, 1)
-                .bindIntValue(initialModel::amount)
+                .bindIntValue(vm.amount::get, vm.amount::set)
                 .focused()
                 .gap(RightGap.SMALL)
                 .applyToComponent {
@@ -41,7 +42,7 @@ class LoremTextView(initialModel: LoremTextModel) : LoremView<LoremTextModel>(in
                     }
                 }
             comboBox(amountUnits, simpleRenderer { it.visibleName(true) })
-                .bindItem(initialModel::unit.toNullableProperty())
+                .bindItem(vm.unit)
                 .applyToComponent {
                     amountUnitCombo = this
                     addItemListener {
@@ -60,8 +61,8 @@ class LoremTextView(initialModel: LoremTextModel) : LoremView<LoremTextModel>(in
 
     private fun Panel.createTextAmountHints() {
         for (amountUnit in amountUnits) {
-            val amountProp = graph.property("")
-            val unitProp = graph.property("")
+            val amountProp = vm.property("")
+            val unitProp = vm.property("")
 
             textAmountChangedCallbacks.add {
                 val unit = amountUnitCombo.item ?: return@add
@@ -112,6 +113,17 @@ class LoremTextView(initialModel: LoremTextModel) : LoremView<LoremTextModel>(in
         textAmountChangedCallbacks.forEach { it() }
     }
 
-    override fun createModel(): LoremTextModel = initialModel
+    fun createModel(): LoremTextModel {
+        panel.apply()
+        return LoremTextModel(
+            vm.unit.get(),
+            vm.amount.get()
+        )
+    }
+
+    private class ViewModel(textModel: LoremTextModel) : AbstractViewModel() {
+        val amount = property(textModel.amount)
+        val unit = property(textModel.unit)
+    }
 }
 
