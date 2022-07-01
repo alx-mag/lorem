@@ -6,22 +6,16 @@ import com.github.alxmag.loremipsumgenerator.action.base.LoremPerformableActionG
 import com.github.alxmag.loremipsumgenerator.model.LoremTextModel
 import com.github.alxmag.loremipsumgenerator.services.LoremHistoryService
 import com.github.alxmag.loremipsumgenerator.services.LoremIpsumService
-import com.github.alxmag.loremipsumgenerator.test.PlaceHolderAction
 import com.github.alxmag.loremipsumgenerator.ui.GeneratePlaceholderTextDialog
 import com.github.alxmag.loremipsumgenerator.ui.LoremTextView
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
 import com.github.alxmag.loremipsumgenerator.util.takeIfOk
-import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.Separator
 import com.intellij.openapi.editor.actionSystem.EditorAction
-import com.intellij.util.castSafelyTo
 
 class LoremTextActionGroup : LoremPerformableActionGroupBase(LoremTextAction(LoremTextActionHandler.FromDialog())) {
-    companion object {
-        const val ID = "lorem.TextAction"
-    }
 
     override fun getChildren(e: AnActionEvent?): Array<AnAction> {
         val historyActions = LoremHistoryService.getInstance()
@@ -50,14 +44,8 @@ abstract class LoremTextActionHandler : LoremActionHandlerBase() {
     abstract val initialTextModel: LoremTextModel
 
     override fun createText(editorContext: EditorContext): String? {
-        val historyService = LoremHistoryService.getInstance()
         val model = getModel(editorContext) ?: return null
-
-        historyService.saveLastTextModel(model)
-        ActionManager.getInstance()
-            .getAction(LoremTextActionGroup.ID)
-            .castSafelyTo<LoremTextActionGroup>()
-            ?.add(PlaceHolderAction("${model.amount} ${model.unit.visibleName(true)}"))
+        LoremHistoryService.getInstance().saveLastTextModel(model)
         return LoremIpsumService.getInstance(editorContext.project).generateText(model)
     }
 
