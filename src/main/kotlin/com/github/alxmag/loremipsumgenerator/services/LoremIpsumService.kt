@@ -2,7 +2,7 @@ package com.github.alxmag.loremipsumgenerator.services
 
 import com.github.alxmag.loremipsumgenerator.lorem.LoremEx
 import com.github.alxmag.loremipsumgenerator.model.LoremParagraphModel
-import com.github.alxmag.loremipsumgenerator.model.LoremTextModel
+import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextModel
 import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.github.alxmag.loremipsumgenerator.util.RandomUtils
 import com.github.alxmag.loremipsumgenerator.util.RandomUtils.getRandomIntBetween
@@ -20,7 +20,7 @@ class LoremIpsumService : LoremIpsum("/lorem"), LoremEx {
     private val loremSettings = LoremSettings.instance
     private val loremHistoryService = LoremHistoryService.getInstance()
 
-    fun generateText(model: LoremTextModel) = when (model.unit) {
+    fun generateText(model: LoremPlaceholderTextModel) = when (model.unit) {
         TextAmountUnit.WORD -> getWords(model.amount)
         TextAmountUnit.SENTENCE -> _sentences(model.amount)
         else -> throw UnsupportedOperationException()

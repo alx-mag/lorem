@@ -1,6 +1,6 @@
 package com.github.alxmag.loremipsumgenerator.services
 
-import com.github.alxmag.loremipsumgenerator.model.LoremTextModel
+import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextModel
 import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
@@ -10,18 +10,23 @@ import com.intellij.util.xmlb.XmlSerializerUtil
  */
 @State(name = "LoremUnits", storages = [Storage("lorem-generator.xml")])
 @Service
-class LoremHistoryService : PersistentStateComponent<LoremHistoryService> {
+class LoremHistoryService : PersistentStateComponent<LoremHistoryService>, BaseState() {
 
-    var preselectedLoremTextModel: LoremTextModel = LoremTextModel()
+    var preselectedLoremPlaceholderTextModel: LoremPlaceholderTextModel by property(LoremPlaceholderTextModel()) {
+        it == LoremPlaceholderTextModel()
+    }
 
-    var textModelsHistory: List<LoremTextModel> = listOf()
+    var textModelsHistory by list<LoremPlaceholderTextModel>()
 
     var wordsPerSentence = MinMax(5, 10)
     var sentencesPerParagraph = MinMax(5, 10)
 
-    fun saveLastTextModel(lastTextModel: LoremTextModel) {
-        preselectedLoremTextModel = lastTextModel
-        textModelsHistory = (listOf(lastTextModel) + textModelsHistory).removeDuplicates()
+    fun saveLastTextModel(lastTextModel: LoremPlaceholderTextModel) {
+        preselectedLoremPlaceholderTextModel = lastTextModel
+        textModelsHistory = buildList {
+            add(lastTextModel)
+            addAll(textModelsHistory)
+        }.removeDuplicates().toMutableList()
     }
 
     override fun getState() = this

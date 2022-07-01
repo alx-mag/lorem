@@ -1,6 +1,5 @@
-package com.github.alxmag.loremipsumgenerator.ui
+package com.github.alxmag.loremipsumgenerator.action.placeholdertext
 
-import com.github.alxmag.loremipsumgenerator.model.LoremTextModel
 import com.github.alxmag.loremipsumgenerator.services.LoremSettings
 import com.github.alxmag.loremipsumgenerator.util.*
 import com.github.alxmag.loremipsumgenerator.util.ListCellRendererFactory.simpleRenderer
@@ -12,8 +11,9 @@ import com.intellij.ui.dsl.gridLayout.HorizontalAlign
 import com.intellij.ui.dsl.gridLayout.VerticalGaps
 import com.intellij.ui.layout.selectedValueMatches
 
-class LoremTextView(initialModel: LoremTextModel) {
+class LoremPlaceholderTextView(initialModel: LoremPlaceholderTextModel) {
 
+    private val myUnitChangedListeners = mutableListOf<UnitChangedListener>()
     private val vm = ViewModel(initialModel)
 
     private val amountUnits = listOf(
@@ -50,6 +50,7 @@ class LoremTextView(initialModel: LoremTextModel) {
                     }
                 }
         }.layout(RowLayout.PARENT_GRID)
+
 
         separator().customize(VerticalGaps.EMPTY)
 
@@ -113,17 +114,31 @@ class LoremTextView(initialModel: LoremTextModel) {
         textAmountChangedCallbacks.forEach { it() }
     }
 
-    fun createModel(): LoremTextModel {
+    fun createModel(): LoremPlaceholderTextModel {
         panel.apply()
-        return LoremTextModel(
+        return LoremPlaceholderTextModel(
             vm.unit.get(),
             vm.amount.get()
         )
     }
 
-    private class ViewModel(textModel: LoremTextModel) : AbstractViewModel() {
+    fun addUnitChangedListener(listener: UnitChangedListener) = myUnitChangedListeners.add(listener)
+
+    fun fireUnitChanged() = myUnitChangedListeners.forEach {
+        it()
+    }
+
+    inner class ViewModel(textModel: LoremPlaceholderTextModel) : AbstractViewModel() {
         val amount = property(textModel.amount)
         val unit = property(textModel.unit)
+
+        init {
+            unit.afterChange { fireUnitChanged() }
+        }
+    }
+
+    fun interface UnitChangedListener {
+        operator fun invoke()
     }
 }
 

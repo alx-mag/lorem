@@ -1,8 +1,8 @@
-package com.github.alxmag.loremipsumgenerator.model
+package com.github.alxmag.loremipsumgenerator.action.placeholdertext
 
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
 
-data class LoremTextModel(var unit: TextAmountUnit, var amount: Int) {
+data class LoremPlaceholderTextModel(var unit: TextAmountUnit, var amount: Int) {
 
     /**
      * Need no-args constructor for serialization purpose
