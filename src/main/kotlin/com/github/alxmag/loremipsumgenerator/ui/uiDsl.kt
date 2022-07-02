@@ -1,7 +1,7 @@
 package com.github.alxmag.loremipsumgenerator.ui
 
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
-import com.github.alxmag.loremipsumgenerator.services.LoremSettings
+import com.github.alxmag.loremipsumgenerator.services.LoremConstants
 import com.github.alxmag.loremipsumgenerator.util.ListCellRendererFactory
 import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
@@ -18,23 +18,34 @@ fun Row.minMaxComponents(
     applyToMinSpinner: (Cell<JBIntSpinner>) -> Unit,
     applyToMaxSpinner: (Cell<JBIntSpinner>) -> Unit
 ) {
-    spinner(range, 1).also(applyToMinSpinner)
+    spinner(range, 1)
+        .also(applyToMinSpinner)
         .gap(RightGap.SMALL)
+
 
     label("–").gap(RightGap.SMALL)
 
-    spinner(range, 1).also(applyToMaxSpinner)
+    spinner(range, 1)
+        .also(applyToMaxSpinner)
 }
 
 fun Panel.minMaxRow(
     @Nls(capitalization = Nls.Capitalization.Sentence) label: String,
     range: IntRange,
-    minMax: MinMax
+    minMax: MinMax,
+    configureMinSpinner: (Cell<JBIntSpinner>) -> Unit = { },
+    configureMaxSpinner: (Cell<JBIntSpinner>) -> Unit = { }
 ): Row = minMaxRow(
     label,
     range,
-    { it.bindIntValue(minMax::min) },
-    { it.bindIntValue(minMax::max) }
+    {
+        it.bindIntValue(minMax::min)
+        configureMinSpinner(it)
+    },
+    {
+        it.bindIntValue(minMax::max)
+        configureMaxSpinner(it)
+    }
 )
 
 fun Panel.minMaxRow(
@@ -48,13 +59,13 @@ fun Panel.minMaxRow(
 
 fun Panel.wordsPerSentenceRow(minMax: MinMax) = minMaxRow(
     message("words.per.sentence.label"),
-    LoremSettings.instance.wordsPerSentenceRange,
+    LoremConstants.instance.wordsPerSentenceRange,
     minMax
 )
 
 fun Panel.sentencesPerParagraphRow(minMax: MinMax) = minMaxRow(
     message("sentences.per.paragraph.label"),
-    LoremSettings.instance.sentencesPerParagraphRange,
+    LoremConstants.instance.sentencesPerParagraphRange,
     minMax
 )
 
@@ -70,7 +81,7 @@ inline fun Panel.textAmountRow(
     crossinline configureUnitCombo: (Cell<ComboBox<TextAmountUnit>>) -> Unit
 ) = row {
     label(label).gap(RightGap.SMALL)
-    spinner(LoremSettings.instance.commonTextAmountRange, 1)
+    spinner(LoremConstants.instance.commonTextAmountRange, 1)
         .bindIntValue(amountProp)
         .focused()
         .gap(RightGap.SMALL)

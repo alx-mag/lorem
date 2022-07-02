@@ -17,7 +17,7 @@ import java.util.*
 @Service(Service.Level.PROJECT)
 class LoremIpsumService : LoremIpsum("/lorem"), LoremEx {
 
-    private val loremSettings = LoremSettings.instance
+    private val loremConstants = LoremConstants.instance
     private val loremHistoryService = LoremHistoryService.getInstance()
 
     fun generateText(model: LoremPlaceholderTextModel) = when (model.unit) {
@@ -35,7 +35,7 @@ class LoremIpsumService : LoremIpsum("/lorem"), LoremEx {
         _sentences(loremHistoryService.sentencesPerParagraph.randomBetween())
     }
 
-    override fun getRandomSentence(): String = getWords(loremSettings.randomSentenceWordsNumber).toSentence()
+    override fun getRandomSentence(): String = getWords(loremConstants.randomSentenceWordsNumber).toSentence()
 
     override fun getParagraph(paragraphModel: LoremParagraphModel) = when (paragraphModel.unit) {
         TextAmountUnit.SENTENCE -> (1..paragraphModel.amount).map {

@@ -1,10 +1,11 @@
 package com.github.alxmag.loremipsumgenerator.services
 
+import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 
 @Service
-class LoremSettings {
+class LoremConstants {
 
     val randomSentenceWordsNumber = 8
 
@@ -12,7 +13,9 @@ class LoremSettings {
     val wordsPerSentenceRange = (1 .. 9999)
     val sentencesPerParagraphRange = (1 .. 9999)
 
+    val defaultWordsPerSentence = MinMax(5, 10)
+
     companion object {
-        val instance = service<LoremSettings>()
+        val instance = service<LoremConstants>()
     }
 }

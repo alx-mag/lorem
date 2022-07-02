@@ -12,13 +12,19 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 @Service
 class LoremHistoryService : PersistentStateComponent<LoremHistoryService>, BaseState() {
 
+    private val loremConstants = LoremConstants.instance
+
     var preselectedLoremPlaceholderTextModel: LoremPlaceholderTextModel by property(LoremPlaceholderTextModel()) {
         it == LoremPlaceholderTextModel()
     }
 
     var textModelsHistory by list<LoremPlaceholderTextModel>()
 
-    var wordsPerSentence = MinMax(5, 10)
+    var wordsPerSentence by property(
+        loremConstants.defaultWordsPerSentence,
+        loremConstants.defaultWordsPerSentence::equals
+    )
+
     var sentencesPerParagraph = MinMax(5, 10)
 
     fun saveLastTextModel(lastTextModel: LoremPlaceholderTextModel) {

@@ -56,7 +56,7 @@ abstract class LoremPlaceholderTextActionHandler : LoremActionHandlerBase() {
         override val initialTextModel: LoremPlaceholderTextModel get() = LoremHistoryService.getInstance().preselectedLoremPlaceholderTextModel
         override fun getModel(editorContext: EditorContext) = LoremPlaceholderTextDialog(
             editorContext.project,
-            LoremPlaceholderTextView(initialTextModel)
+            LoremPlaceholderTextView(editorContext.project, initialTextModel)
         )
             .takeIfOk()
             ?.getModel()
