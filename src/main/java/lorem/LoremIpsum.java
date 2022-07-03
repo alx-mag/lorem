@@ -329,7 +329,7 @@ public class LoremIpsum implements Lorem {
 		return getWords(min, max, false);
 	}
 
-	protected String getWords(int count, boolean title) {
+	public String getWords(int count, boolean title) {
 		StringBuilder sb = new StringBuilder();
 		int size = words.size();
 		int wordCount = 0;

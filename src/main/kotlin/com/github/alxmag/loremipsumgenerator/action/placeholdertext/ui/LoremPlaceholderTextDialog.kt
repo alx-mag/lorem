@@ -1,4 +1,4 @@
-package com.github.alxmag.loremipsumgenerator.action.placeholdertext
+package com.github.alxmag.loremipsumgenerator.action.placeholdertext.ui
 
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.intellij.openapi.application.invokeLater

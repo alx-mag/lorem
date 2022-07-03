@@ -1,7 +1,7 @@
-package com.github.alxmag.loremipsumgenerator.action.placeholdertext
+package com.github.alxmag.loremipsumgenerator.action.placeholdertext.ui
 
 import com.github.alxmag.loremipsumgenerator.MyBundle
-import com.github.alxmag.loremipsumgenerator.services.LoremConstants
+import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextSettings
 import com.github.alxmag.loremipsumgenerator.ui.minMaxRow
 import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.github.alxmag.loremipsumgenerator.util.takeIfOk
@@ -24,7 +24,7 @@ class WordsSettingsDialog(project: Project?, val model: WordsSettingsModel) : Di
     override fun createCenterPanel() = panel {
         minMaxRow(
             MyBundle.message("words.per.sentence.label"),
-            LoremConstants.instance.wordsPerSentenceRange,
+            (1 .. 9999),
             model.wordsPerSentence,
             configureMinSpinner = {
                 minSpinner = it.component

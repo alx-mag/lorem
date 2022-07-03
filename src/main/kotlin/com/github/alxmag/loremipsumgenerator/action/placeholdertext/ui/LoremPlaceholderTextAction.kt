@@ -1,9 +1,11 @@
-package com.github.alxmag.loremipsumgenerator.action.placeholdertext
+package com.github.alxmag.loremipsumgenerator.action.placeholdertext.ui
 
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.action.base.LoremActionHandlerBase
 import com.github.alxmag.loremipsumgenerator.action.base.LoremPerformableActionGroupBase
-import com.github.alxmag.loremipsumgenerator.services.LoremIpsumService
+import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextGenerator
+import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextModel
+import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextSettings
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
 import com.github.alxmag.loremipsumgenerator.util.takeIfOk
 import com.intellij.openapi.actionSystem.AnAction
@@ -46,7 +48,7 @@ abstract class LoremPlaceholderTextActionHandler : LoremActionHandlerBase() {
     override fun createText(editorContext: EditorContext): String? {
         val model = getModel(editorContext) ?: return null
         LoremPlaceholderTextSettings.getInstance().saveLastTextModel(model)
-        return LoremIpsumService.getInstance(editorContext.project).generateText(model)
+        return LoremPlaceholderTextGenerator.getInstance(editorContext.project).generateText(model)
     }
 
     protected abstract fun getModel(editorContext: EditorContext): LoremPlaceholderTextModel?

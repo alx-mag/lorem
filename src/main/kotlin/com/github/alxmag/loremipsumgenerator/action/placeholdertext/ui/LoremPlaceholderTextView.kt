@@ -1,7 +1,8 @@
-package com.github.alxmag.loremipsumgenerator.action.placeholdertext
+package com.github.alxmag.loremipsumgenerator.action.placeholdertext.ui
 
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
-import com.github.alxmag.loremipsumgenerator.services.LoremConstants
+import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextModel
+import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextSettings
 import com.github.alxmag.loremipsumgenerator.util.*
 import com.github.alxmag.loremipsumgenerator.util.ListCellRendererFactory.simpleRenderer
 import com.intellij.openapi.project.Project
@@ -35,7 +36,7 @@ class LoremPlaceholderTextView(private val project: Project?, initialModel: Lore
     private fun createPanel(): DialogPanel = panel {
         row {
             label("Text of:")
-            spinner(LoremConstants.instance.commonTextAmountRange, 1)
+            spinner((1..1_000_000), 1)
                 .bindIntValue(vm.amount::get, vm.amount::set)
                 .focused()
                 .gap(RightGap.SMALL)
