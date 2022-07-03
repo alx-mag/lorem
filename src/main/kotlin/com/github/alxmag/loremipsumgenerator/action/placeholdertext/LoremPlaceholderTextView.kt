@@ -2,7 +2,6 @@ package com.github.alxmag.loremipsumgenerator.action.placeholdertext
 
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.services.LoremConstants
-import com.github.alxmag.loremipsumgenerator.services.LoremHistoryService
 import com.github.alxmag.loremipsumgenerator.util.*
 import com.github.alxmag.loremipsumgenerator.util.ListCellRendererFactory.simpleRenderer
 import com.intellij.openapi.project.Project
@@ -119,7 +118,7 @@ class LoremPlaceholderTextView(private val project: Project?, initialModel: Lore
     // TODO put to amountHints settings
     private fun getConverterData() = ConverterData.create(
         Triple(TextAmountUnit.PARAGRAPH, TextAmountUnit.SENTENCE, MinMax(5, 10)),
-        Triple(TextAmountUnit.SENTENCE, TextAmountUnit.WORD, LoremHistoryService.getInstance().wordsPerSentence)
+        Triple(TextAmountUnit.SENTENCE, TextAmountUnit.WORD, LoremPlaceholderTextSettings.getInstance().wordsPerSentence)
     )
 
     private fun refreshAmountHints() = amountHintRefreshers.forEach { it() }

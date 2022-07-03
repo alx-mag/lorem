@@ -3,7 +3,6 @@ package com.github.alxmag.loremipsumgenerator.action.placeholdertext
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.action.base.LoremActionHandlerBase
 import com.github.alxmag.loremipsumgenerator.action.base.LoremPerformableActionGroupBase
-import com.github.alxmag.loremipsumgenerator.services.LoremHistoryService
 import com.github.alxmag.loremipsumgenerator.services.LoremIpsumService
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
 import com.github.alxmag.loremipsumgenerator.util.takeIfOk
@@ -19,7 +18,7 @@ class LoremPlaceholderTextActionGroup : LoremPerformableActionGroupBase(
 ) {
 
     override fun getChildren(e: AnActionEvent?): Array<AnAction> {
-        val historyActions = LoremHistoryService.getInstance()
+        val historyActions = LoremPlaceholderTextSettings.getInstance()
             .textModelsHistory
             .map(LoremPlaceholderTextActionHandler::FromHistory)
             .map(::LoremPlaceholderTextAction)
@@ -46,14 +45,14 @@ abstract class LoremPlaceholderTextActionHandler : LoremActionHandlerBase() {
 
     override fun createText(editorContext: EditorContext): String? {
         val model = getModel(editorContext) ?: return null
-        LoremHistoryService.getInstance().saveLastTextModel(model)
+        LoremPlaceholderTextSettings.getInstance().saveLastTextModel(model)
         return LoremIpsumService.getInstance(editorContext.project).generateText(model)
     }
 
     protected abstract fun getModel(editorContext: EditorContext): LoremPlaceholderTextModel?
 
     class FromDialog : LoremPlaceholderTextActionHandler() {
-        override val initialTextModel: LoremPlaceholderTextModel get() = LoremHistoryService.getInstance().preselectedLoremPlaceholderTextModel
+        override val initialTextModel: LoremPlaceholderTextModel get() = LoremPlaceholderTextSettings.getInstance().preselectedLoremPlaceholderTextModel
         override fun getModel(editorContext: EditorContext) = LoremPlaceholderTextDialog(
             editorContext.project,
             LoremPlaceholderTextView(editorContext.project, initialTextModel)

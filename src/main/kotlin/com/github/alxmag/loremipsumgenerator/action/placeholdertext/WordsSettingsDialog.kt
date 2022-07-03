@@ -2,7 +2,6 @@ package com.github.alxmag.loremipsumgenerator.action.placeholdertext
 
 import com.github.alxmag.loremipsumgenerator.MyBundle
 import com.github.alxmag.loremipsumgenerator.services.LoremConstants
-import com.github.alxmag.loremipsumgenerator.services.LoremHistoryService
 import com.github.alxmag.loremipsumgenerator.ui.minMaxRow
 import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.github.alxmag.loremipsumgenerator.util.takeIfOk
@@ -46,10 +45,10 @@ class WordsSettingsDialog(project: Project?, val model: WordsSettingsModel) : Di
 
     companion object {
         fun show(project: Project?): WordsSettingsModel? {
-            val historyService = LoremHistoryService.getInstance()
+            val historyService = LoremPlaceholderTextSettings.getInstance()
             val model = WordsSettingsDialog(
                 project,
-                WordsSettingsModel(historyService.wordsPerSentence.copy())
+                WordsSettingsModel(historyService.wordsPerSentence)
             )
                 .takeIfOk()
                 ?.model

@@ -1,13 +1,13 @@
 package com.github.alxmag.loremipsumgenerator.services
 
+import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextSettings
+import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextModel
 import com.github.alxmag.loremipsumgenerator.lorem.LoremEx
 import com.github.alxmag.loremipsumgenerator.model.LoremParagraphModel
-import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextModel
 import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.github.alxmag.loremipsumgenerator.util.RandomUtils
 import com.github.alxmag.loremipsumgenerator.util.RandomUtils.getRandomIntBetween
 import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
-import com.github.alxmag.loremipsumgenerator.util.randomBetween
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
@@ -18,7 +18,7 @@ import java.util.*
 class LoremIpsumService : LoremIpsum("/lorem"), LoremEx {
 
     private val loremConstants = LoremConstants.instance
-    private val loremHistoryService = LoremHistoryService.getInstance()
+    private val loremHistoryService = LoremPlaceholderTextSettings.getInstance()
 
     fun generateText(model: LoremPlaceholderTextModel) = when (model.unit) {
         TextAmountUnit.WORD -> getWords(model.amount)
@@ -29,10 +29,6 @@ class LoremIpsumService : LoremIpsum("/lorem"), LoremEx {
     private fun _sentence() = getRandomSentenceOfWords(loremHistoryService.wordsPerSentence)
     private fun _sentences(sentences: Int) = (1..sentences).joinToString(" ") {
         _sentence()
-    }
-
-    private fun _paragraphs(paragraphs: Int) = (1..paragraphs).joinToString("\n") {
-        _sentences(loremHistoryService.sentencesPerParagraph.randomBetween())
     }
 
     override fun getRandomSentence(): String = getWords(loremConstants.randomSentenceWordsNumber).toSentence()
