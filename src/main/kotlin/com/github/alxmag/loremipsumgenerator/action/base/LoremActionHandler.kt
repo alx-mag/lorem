@@ -10,7 +10,7 @@ import com.intellij.openapi.editor.actionSystem.EditorActionHandler
 /**
  * Base implementation for lorem generation actions
  */
-abstract class LoremActionHandlerBase : EditorActionHandler.ForEachCaret() {
+abstract class LoremActionHandler : EditorActionHandler.ForEachCaret() {
 
     override fun doExecute(editor: Editor, caret: Caret, dataContext: DataContext?) {
         val project = editor.project ?: return
@@ -33,4 +33,26 @@ abstract class LoremActionHandlerBase : EditorActionHandler.ForEachCaret() {
     }
 
     protected abstract fun createText(editorContext: EditorContext): String?
+
+    abstract class ByModel<T> : LoremActionHandler() {
+        final override fun createText(editorContext: EditorContext): String? {
+            val model = getModel(editorContext) ?: return null
+            afterModelProvided(model)
+            return generateText(editorContext, model)
+        }
+
+
+        /**
+         * Provides generation model. This can be provided via dialog or programmaticaly
+         */
+        protected abstract fun getModel(editorContext: EditorContext): T?
+
+        /**
+         * Used to store model into history
+         */
+        protected abstract fun afterModelProvided(model: T)
+
+        protected abstract fun generateText(editorContext: EditorContext, model: T): String
+    }
 }
+

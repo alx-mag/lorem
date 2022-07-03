@@ -1,7 +1,7 @@
 package com.github.alxmag.loremipsumgenerator.action.placeholdertext.ui
 
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
-import com.github.alxmag.loremipsumgenerator.action.base.LoremActionHandlerBase
+import com.github.alxmag.loremipsumgenerator.action.base.LoremActionHandler
 import com.github.alxmag.loremipsumgenerator.action.base.LoremPerformableActionGroupBase
 import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextGenerator
 import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextModel
@@ -41,20 +41,29 @@ class LoremPlaceholderTextAction(handler: LoremPlaceholderTextActionHandler) : E
     }
 }
 
-abstract class LoremPlaceholderTextActionHandler : LoremActionHandlerBase() {
+abstract class LoremPlaceholderTextActionHandler : LoremActionHandler.ByModel<LoremPlaceholderTextModel>() {
 
+    /**
+     * Required for action presentation
+     */
     abstract val initialTextModel: LoremPlaceholderTextModel
 
-    override fun createText(editorContext: EditorContext): String? {
-        val model = getModel(editorContext) ?: return null
-        LoremPlaceholderTextSettings.getInstance().saveLastTextModel(model)
-        return LoremPlaceholderTextGenerator.getInstance(editorContext.project).generateText(model)
+    override fun generateText(editorContext: EditorContext, model: LoremPlaceholderTextModel): String {
+        return LoremPlaceholderTextGenerator
+            .getInstance(editorContext.project)
+            .generateText(model)
     }
 
-    protected abstract fun getModel(editorContext: EditorContext): LoremPlaceholderTextModel?
+    override fun afterModelProvided(model: LoremPlaceholderTextModel) {
+        LoremPlaceholderTextSettings.getInstance().saveLastTextModel(model)
+    }
 
     class FromDialog : LoremPlaceholderTextActionHandler() {
-        override val initialTextModel: LoremPlaceholderTextModel get() = LoremPlaceholderTextSettings.getInstance().preselectedLoremPlaceholderTextModel
+
+        override val initialTextModel: LoremPlaceholderTextModel = LoremPlaceholderTextSettings.getInstance()
+            .preselectedLoremPlaceholderTextModel
+
+
         override fun getModel(editorContext: EditorContext) = LoremPlaceholderTextDialog(
             editorContext.project,
             LoremPlaceholderTextView(editorContext.project, initialTextModel)
