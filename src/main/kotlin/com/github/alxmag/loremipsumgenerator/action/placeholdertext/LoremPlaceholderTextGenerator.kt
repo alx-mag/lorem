@@ -6,13 +6,13 @@ import com.github.alxmag.loremipsumgenerator.util.TextAmountUnit
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
-import lorem.LoremIpsum
+import com.thedeanda.lorem.LoremIpsum
 import java.util.*
 
 @Service(Service.Level.PROJECT)
 class LoremPlaceholderTextGenerator {
 
-    private val loremIpsum = LoremIpsum("/lorem")
+    private val loremIpsum = LoremIpsum.getInstance()
 
     private val loremHistoryService = LoremPlaceholderTextSettings.getInstance()
 
@@ -33,7 +33,7 @@ class LoremPlaceholderTextGenerator {
             else -> getRandomIntBetween(minWords, maxWords)
         }
 
-        return loremIpsum.getWords(words, false).toSentence()
+        return loremIpsum.getWords(words).toSentence()
     }
 
     private fun getRandomSentenceOfWords(words: MinMax) = getRandomSentenceOfWords(words.min, words.max)

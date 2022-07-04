@@ -24,6 +24,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
+    implementation("com.thedeanda:lorem:2.1")
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
