@@ -1,10 +1,11 @@
 package com.github.alxmag.loremipsumgenerator.action.placeholdertext
 
+import com.github.alxmag.loremipsumgenerator.util.LoremConstants.STORAGE_PATH
 import com.github.alxmag.loremipsumgenerator.util.MinMax
 import com.github.alxmag.loremipsumgenerator.util.removeDuplicates
 import com.intellij.openapi.components.*
 
-@State(name = "LoremUnits", storages = [Storage("lorem-generator.xml")])
+@State(name = "LoremUnits", storages = [Storage(STORAGE_PATH)])
 @Service
 class LoremPlaceholderTextSettings : SimplePersistentStateComponent<LoremPlaceholderTextSettings.State>(State()) {
 

@@ -18,9 +18,15 @@
             <override-text place="popup@LoremEditorPopup" />
         </action>
 
+        <action class="com.github.alxmag.loremipsumgenerator.action.name.LoremNameActionGroup"
+                id="lorem.NameAction">
+            <override-text place="popup@LoremEditorPopup"/>
+        </action>
+
         <!-- Popup menu group -->
         <group id="lorem.GeneratePopupGroup">
             <reference id="lorem.TextAction"/>
+            <reference id="lorem.NameAction"/>
         </group>
 
         <!-- Main popup action -->

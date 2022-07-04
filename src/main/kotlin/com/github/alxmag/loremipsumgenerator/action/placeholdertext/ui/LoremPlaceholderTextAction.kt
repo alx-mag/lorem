@@ -1,6 +1,5 @@
 package com.github.alxmag.loremipsumgenerator.action.placeholdertext.ui
 
-import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.action.base.LoremActionHandler
 import com.github.alxmag.loremipsumgenerator.action.base.LoremPerformableActionGroupBase
 import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextGenerator
@@ -9,29 +8,16 @@ import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceho
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
 import com.github.alxmag.loremipsumgenerator.util.takeIfOk
 import com.intellij.openapi.actionSystem.AnAction
-import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.actionSystem.Separator
 import com.intellij.openapi.editor.actionSystem.EditorAction
 
-class LoremPlaceholderTextActionGroup : LoremPerformableActionGroupBase(
-    LoremPlaceholderTextAction(
-        LoremPlaceholderTextActionHandler.FromDialog()
-    )
-) {
+class LoremPlaceholderTextActionGroup : LoremPerformableActionGroupBase.WithRecentActions() {
 
-    override fun getChildren(e: AnActionEvent?): Array<AnAction> {
-        val historyActions = LoremPlaceholderTextSettings.getInstance()
-            .textModelsHistory
-            .map(LoremPlaceholderTextActionHandler::FromHistory)
-            .map(::LoremPlaceholderTextAction)
+    override val action: AnAction = LoremPlaceholderTextAction(LoremPlaceholderTextActionHandler.FromDialog())
 
-        return buildList {
-            if (historyActions.isNotEmpty()) {
-                add(Separator(message("separator.recent")))
-            }
-            addAll(historyActions)
-        }.toTypedArray()
-    }
+    override fun getHistoryActions(): List<AnAction> = LoremPlaceholderTextSettings.getInstance()
+        .textModelsHistory
+        .map(LoremPlaceholderTextActionHandler::FromHistory)
+        .map(::LoremPlaceholderTextAction)
 }
 
 class LoremPlaceholderTextAction(handler: LoremPlaceholderTextActionHandler) : EditorAction(handler) {
@@ -60,8 +46,10 @@ abstract class LoremPlaceholderTextActionHandler : LoremActionHandler.ByModel<Lo
 
     class FromDialog : LoremPlaceholderTextActionHandler() {
 
-        override val initialTextModel: LoremPlaceholderTextModel = LoremPlaceholderTextSettings.getInstance()
-            .preselectedLoremPlaceholderTextModel
+        override val initialTextModel: LoremPlaceholderTextModel
+            // Should be stateless because text model is roaming value
+            get() = LoremPlaceholderTextSettings.getInstance()
+                .preselectedLoremPlaceholderTextModel
 
 
         override fun getModel(editorContext: EditorContext) = LoremPlaceholderTextDialog(

@@ -9,8 +9,6 @@ enum class TextAmountUnit(@Nls(capitalization = Sentence) val visibleName: Strin
     SENTENCE("Sentence"),
     PARAGRAPH("Paragraph");
 
-    fun visibleNameLabel() = visibleName.lowercase()
-
     fun parentUnit() = values().getOrNull(ordinal + 1)
 
     fun childUnit() = values().getOrNull(ordinal - 1)

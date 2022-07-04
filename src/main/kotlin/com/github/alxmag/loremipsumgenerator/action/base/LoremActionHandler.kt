@@ -41,7 +41,6 @@ abstract class LoremActionHandler : EditorActionHandler.ForEachCaret() {
             return generateText(editorContext, model)
         }
 
-
         /**
          * Provides generation model. This can be provided via dialog or programmaticaly
          */
