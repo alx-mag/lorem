@@ -7,7 +7,7 @@ plugins {
     // Java support
     id("java")
     // Kotlin support
-    id("org.jetbrains.kotlin.jvm") version "1.6.10"
+    id("org.jetbrains.kotlin.jvm") version "1.7.0"
     // Gradle IntelliJ Plugin
     id("org.jetbrains.intellij") version "1.7.0-SNAPSHOT"
     // Gradle Changelog Plugin
@@ -93,12 +93,6 @@ tasks {
                 getOrNull(properties("pluginVersion")) ?: getLatest()
             }.toHTML()
         })
-
-        val test by getting(Test::class) {
-            setScanForTestClasses(false)
-            // Only run tests from classes that end with "Test"
-            include("**/*Test.class")
-        }
     }
 
     // Configure UI tests plugin
@@ -125,10 +119,9 @@ tasks {
         channels.set(listOf(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first()))
     }
 
-    test {
-        useJUnitPlatform()
-        testLogging {
-            events("passed", "skipped", "failed")
-        }
+    val test by getting(Test::class) {
+        isScanForTestClasses = false
+        // Only run tests from classes that end with "Test"
+        include("**/*Test.class")
     }
 }
