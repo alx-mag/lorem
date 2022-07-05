@@ -16,7 +16,7 @@ class LoremNameActionGroup : LoremPerformableActionGroupBase() {
     override fun getChildren(e: AnActionEvent?): Array<AnAction> = emptyArray()
 }
 
-class LoremNameActionHandler() : LoremActionHandler.ByModel<LoremNameModel>() {
+class LoremNameActionHandler : LoremActionHandler.ByModel<LoremNameModel>() {
 
     override fun getModel(editorContext: EditorContext) = LoremNameDialog(
         LoremNameSettings.getInstance().state.preselectedNameModel,
@@ -26,8 +26,7 @@ class LoremNameActionHandler() : LoremActionHandler.ByModel<LoremNameModel>() {
         ?.getModel()
 
     override fun generateText(editorContext: EditorContext, model: LoremNameModel): String {
-        // TODO
-        return "TODO"
+        return LoremNameGenerator.getInstance().generateName(model)
     }
 
     override fun afterModelProvided(model: LoremNameModel) {
@@ -42,12 +41,13 @@ data class LoremNameModel(var pattern: NamePattern, var gender: Gender) {
 }
 
 enum class NamePattern(val visibleName: String) {
-    FIRSTNAME("Firstname"),
-    LASTNAME("Lastname"),
-    FULL_NAME("Full name")
+    FIRSTNAME("First Name"),
+    LASTNAME("Last Name"),
+    FULL_NAME("Full Name")
 }
 
 enum class Gender(val visibleName: String) {
     MALE("Male"),
-    FEMALE("Female")
+    FEMALE("Female"),
+    ANY("Any")
 }

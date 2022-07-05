@@ -55,6 +55,7 @@ class LoremNameDialog(initialModel: LoremNameModel, project: Project) : DialogWr
             NamePattern.FIRSTNAME -> when (gender) {
                 Gender.MALE -> "Homer"
                 Gender.FEMALE -> "Marge"
+                Gender.ANY -> "(Homer | Marge)"
             }
 
             NamePattern.LASTNAME -> "Simpson"
