@@ -1,5 +1,6 @@
 package com.github.alxmag.loremipsumgenerator.action.name
 
+import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.util.ListCellRendererFactory.simpleRenderer
 import com.intellij.openapi.observable.properties.PropertyGraph
 import com.intellij.openapi.project.Project
@@ -23,7 +24,7 @@ class LoremNameDialog(initialModel: LoremNameModel, project: Project) : DialogWr
         }
 
     init {
-        title = "Generate Name"
+        title = message("generate.name.title")
         init()
     }
 
@@ -48,7 +49,9 @@ class LoremNameDialog(initialModel: LoremNameModel, project: Project) : DialogWr
         }
     }
 
-    private fun createHint(): String = "Example result: " + createNameForHint(namePattern.get(), gender.get())
+    private fun createHint(): String {
+        return message("example.result") + " " + createNameForHint(namePattern.get(), gender.get())
+    }
 
     private fun createNameForHint(namePattern: NamePattern, gender: Gender): String {
         return when (namePattern) {
