@@ -23,10 +23,16 @@
             <override-text place="popup@LoremEditorPopup"/>
         </action>
 
+        <action class="com.github.alxmag.loremipsumgenerator.action.email.LoremEmailAction"
+                id="lorem.EmailAction">
+            <override-text place="popup@LoremEditorPopup"/>
+        </action>
+
         <!-- Popup menu group -->
         <group id="lorem.GeneratePopupGroup">
             <reference id="lorem.TextAction"/>
             <reference id="lorem.NameAction"/>
+            <reference id="lorem.EmailAction"/>
         </group>
 
         <!-- Main popup action -->
