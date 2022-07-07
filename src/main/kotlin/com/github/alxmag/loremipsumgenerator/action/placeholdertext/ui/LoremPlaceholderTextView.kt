@@ -35,7 +35,6 @@ class LoremPlaceholderTextView(private val project: Project?, initialModel: Lore
 
     private fun createPanel(): DialogPanel = panel {
         row {
-            label("Text of:")
             spinner((1..1_000_000), 1)
                 .bindIntValue(vm.amount::get, vm.amount::set)
                 .focused()
@@ -98,7 +97,6 @@ class LoremPlaceholderTextView(private val project: Project?, initialModel: Lore
             }
 
             row {
-                cell()
                 comment("", action = ::onAmountHintClick)
                     .horizontalAlign(HorizontalAlign.RIGHT)
                     .bindText(amountProp)
