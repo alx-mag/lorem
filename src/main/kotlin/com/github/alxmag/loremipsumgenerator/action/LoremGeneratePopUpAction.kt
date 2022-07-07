@@ -1,5 +1,6 @@
 package com.github.alxmag.loremipsumgenerator.action
 
+import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.util.LoremActionPlace
 import com.intellij.openapi.actionSystem.ActionGroup
 import com.intellij.openapi.actionSystem.ActionManager
@@ -14,7 +15,7 @@ class LoremGeneratePopUpAction : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) = JBPopupFactory.getInstance()
         .createActionGroupPopup(
-            "Generate Placeholder Text",
+            message("main.popup.title"),
             ActionManager.getInstance().getAction("lorem.GeneratePopupGroup") as ActionGroup,
             e.dataContext,
             JBPopupFactory.ActionSelectionAid.NUMBERING,
