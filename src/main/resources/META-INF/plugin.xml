@@ -43,6 +43,11 @@
             <override-text place="popup@LoremEditorPopup"/>
         </action>
 
+        <action class="com.github.alxmag.loremipsumgenerator.action.state.LoremStateAction"
+                id="lorem.StateAction">
+            <override-text place="popup@LoremEditorPopup"/>
+        </action>
+
         <!-- Popup menu group -->
         <group id="lorem.GeneratePopupGroup">
             <reference id="lorem.TextAction"/>
@@ -53,6 +58,7 @@
             <separator/>
             <reference id="lorem.CityAction"/>
             <reference id="lorem.CountryAction"/>
+            <reference id="lorem.StateAction"/>
         </group>
 
         <!-- Main popup action -->

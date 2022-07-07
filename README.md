@@ -12,7 +12,7 @@ Lorem will help you to generate placeholder that may be used for testing purpose
 * Human name
 * Email
 * Phone number
-* Country/City names
+* Country/City/State name
 <!-- Plugin description end -->
 
 ## Installation

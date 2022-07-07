@@ -7,8 +7,8 @@ import com.thedeanda.lorem.LoremIpsum
 
 private val lorem = LoremIpsum.getInstance()
 
-class LoremCountryAction : EditorAction(LoremEmailActionHandler())
+class LoremCountryAction : EditorAction(LoremCountryActionHandler())
 
-class LoremEmailActionHandler : LoremActionHandler() {
+class LoremCountryActionHandler : LoremActionHandler() {
     override fun createText(editorContext: EditorContext): String = lorem.country
 }

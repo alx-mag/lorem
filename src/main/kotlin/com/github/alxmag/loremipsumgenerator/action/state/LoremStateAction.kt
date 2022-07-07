@@ -1,4 +1,4 @@
-package com.github.alxmag.loremipsumgenerator.action.city
+package com.github.alxmag.loremipsumgenerator.action.state
 
 import com.github.alxmag.loremipsumgenerator.action.base.LoremActionHandler
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
@@ -7,8 +7,8 @@ import com.thedeanda.lorem.LoremIpsum
 
 private val lorem = LoremIpsum.getInstance()
 
-class LoremCityAction : EditorAction(LoremCityActionHandler())
+class LoremStateAction : EditorAction(LoremStateActionHandler())
 
-class LoremCityActionHandler : LoremActionHandler() {
-    override fun createText(editorContext: EditorContext): String = lorem.city
+class LoremStateActionHandler : LoremActionHandler() {
+    override fun createText(editorContext: EditorContext): String = lorem.stateFull
 }
