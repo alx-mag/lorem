@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.alxmag.loremipsumgenerator</id>
-    <name>Lorem Ipsum Generator</name>
+    <id>alxmag.lorem</id>
+    <name>Lorem</name>
     <vendor>alx-mag</vendor>
 
     <depends>com.intellij.modules.platform</depends>
