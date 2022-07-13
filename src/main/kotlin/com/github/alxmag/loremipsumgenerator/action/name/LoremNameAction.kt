@@ -3,6 +3,8 @@ package com.github.alxmag.loremipsumgenerator.action.name
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.action.base.LoremActionHandler
 import com.github.alxmag.loremipsumgenerator.action.base.LoremPerformableActionGroupBase
+import com.github.alxmag.loremipsumgenerator.action.preview.LoremPreviewDialog
+import com.github.alxmag.loremipsumgenerator.template.LoremTemplatesManager
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
 import com.github.alxmag.loremipsumgenerator.util.takeIfOk
 import com.intellij.openapi.actionSystem.AnAction
@@ -11,50 +13,30 @@ import com.intellij.openapi.editor.actionSystem.EditorAction
 
 class LoremNameActionGroup : LoremPerformableActionGroupBase() {
 
-    override val action: AnAction = object : EditorAction(LoremNameActionHandler.FromDialog()) {}
-
-    override fun getChildren(e: AnActionEvent?): Array<AnAction> = sequenceOf(
-        LoremNameModel(NamePattern.FIRSTNAME, Gender.ANY),
-        LoremNameModel(NamePattern.FIRSTNAME, Gender.MALE),
-        LoremNameModel(NamePattern.FIRSTNAME, Gender.FEMALE),
-        LoremNameModel(NamePattern.LASTNAME, Gender.ANY),
-        LoremNameModel(NamePattern.FULL_NAME, Gender.ANY),
-        LoremNameModel(NamePattern.FULL_NAME, Gender.MALE),
-        LoremNameModel(NamePattern.FULL_NAME, Gender.FEMALE)
-    ).map { model ->
-        object : EditorAction(LoremNameActionHandler.FromModel(model)) {
-            init {
-                templatePresentation.text = model.createActionName()
-            }
+    override val action: AnAction = object : EditorAction(object : LoremActionHandler() {
+        override fun createText(editorContext: EditorContext): String? {
+            val project = editorContext.project
+            val nameTemplates = LoremTemplatesManager.getInstance(project).getNameTemplates()
+            return LoremPreviewDialog(project, "Generate Name", nameTemplates)
+                .takeIfOk()
+                ?.getText()
         }
-    }.toList().toTypedArray()
-}
+    }) {}
 
-abstract class LoremNameActionHandler : LoremActionHandler.ByModel<LoremNameModel>() {
-
-    override fun generateText(editorContext: EditorContext, model: LoremNameModel): String {
-        return LoremNameGenerator.getInstance().generateName(model)
-    }
-
-    override fun afterModelProvided(model: LoremNameModel) {
-        LoremNameSettings.getInstance().applyModelToHistory(model)
-    }
-
-    class FromDialog : LoremNameActionHandler() {
-        override fun getModel(editorContext: EditorContext) = LoremNameDialog(
-            LoremNameSettings.getInstance().state.preselectedNameModel,
-            editorContext.project
-        )
-            .takeIfOk()
-            ?.getModel()
-    }
-
-    class FromModel(private val model: LoremNameModel) : LoremNameActionHandler() {
-        override fun getModel(editorContext: EditorContext): LoremNameModel = model
-
+    override fun getChildren(e: AnActionEvent?): Array<AnAction> {
+        val project = e?.project ?: return emptyArray()
+        return LoremTemplatesManager.getInstance(project)
+            .getNameTemplates()
+            .map { template ->
+                object : EditorAction(LoremActionHandler.create { template.generate() }) {
+                    init {
+                        templatePresentation.text = template.title
+                    }
+                }
+            }
+            .toTypedArray()
     }
 }
-
 
 data class LoremNameModel(var pattern: NamePattern, var gender: Gender) {
 

@@ -25,8 +25,5 @@ class LoremGeneratePopUpAction : AnAction() {
             null,
             LoremActionPlace.EDITOR_POPUP
         )
-        .also {
-            it.canClose()
-        }
         .showInBestPositionFor(e.dataContext)
 }

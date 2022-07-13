@@ -53,5 +53,11 @@ abstract class LoremActionHandler : EditorActionHandler.ForEachCaret() {
 
         protected abstract fun generateText(editorContext: EditorContext, model: T): String
     }
+
+    companion object {
+        fun create(operation: (EditorContext) -> String?) = object : LoremActionHandler() {
+            override fun createText(editorContext: EditorContext) = operation(editorContext)
+        }
+    }
 }
 

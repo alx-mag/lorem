@@ -25,6 +25,8 @@ repositories {
 }
 dependencies {
     implementation("com.thedeanda:lorem:2.1")
+    implementation("net.datafaker:datafaker:1.4.0")
+
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }

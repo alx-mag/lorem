@@ -62,11 +62,11 @@
         </group>
 
         <!-- Main popup action -->
-        <action id="lorem.GeneratePopupAction" 
+        <action id="lorem.GeneratePopupAction"
                 class="com.github.alxmag.loremipsumgenerator.action.LoremGeneratePopUpAction">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-            
+
             <keyboard-shortcut first-keystroke="control shift G" keymap="$default"/>
         </action>
     </actions>
