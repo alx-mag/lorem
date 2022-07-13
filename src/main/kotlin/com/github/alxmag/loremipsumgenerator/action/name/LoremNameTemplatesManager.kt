@@ -1,4 +1,4 @@
-package com.github.alxmag.loremipsumgenerator.template
+package com.github.alxmag.loremipsumgenerator.action.name
 
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.action.preview.SimpleFakerLoremTemplate.Companion.simpleLoremTemplate
@@ -8,7 +8,7 @@ import com.intellij.openapi.project.Project
 import net.datafaker.Faker
 
 @Service
-class LoremTemplatesManager(private val project: Project) {
+class LoremNameTemplatesManager(private val project: Project) {
 
     private val simpleNameTemplatesMap = mapOf<String, (Faker) -> String>(
         message("full.name") to { it.name().fullName() },
@@ -28,6 +28,6 @@ class LoremTemplatesManager(private val project: Project) {
     }
 
     companion object {
-        fun getInstance(project: Project) = project.service<LoremTemplatesManager>()
+        fun getInstance(project: Project) = project.service<LoremNameTemplatesManager>()
     }
 }
