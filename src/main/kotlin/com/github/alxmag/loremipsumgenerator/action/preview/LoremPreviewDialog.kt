@@ -1,7 +1,6 @@
 package com.github.alxmag.loremipsumgenerator.action.preview
 
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
-import com.github.alxmag.loremipsumgenerator.template.FakerManager
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.AnAction
@@ -15,7 +14,6 @@ import com.intellij.ui.SimpleListCellRenderer
 import com.intellij.ui.dsl.builder.*
 import com.intellij.ui.dsl.gridLayout.HorizontalAlign
 import com.intellij.ui.dsl.gridLayout.VerticalAlign
-import net.datafaker.Faker
 import javax.swing.JComponent
 
 class LoremPreviewDialog(
@@ -115,33 +113,3 @@ class LoremPreviewDialog(
     }
 }
 
-interface LoremTemplate {
-    val title: String
-
-    fun generate(): String
-
-    fun renderAdditionalParams(panel: Panel)
-}
-
-abstract class SimpleFakerLoremTemplate(project: Project, override val title: String) : LoremTemplate {
-
-    private val fakerManager = FakerManager.getInstance(project)
-
-    final override fun generate(): String = doGenerate(fakerManager.getFaker())
-
-    override fun renderAdditionalParams(panel: Panel) {
-        // Do nothing for simple templates
-    }
-
-    protected abstract fun doGenerate(faker: Faker): String
-
-    companion object {
-        fun simpleLoremTemplate(
-            project: Project,
-            title: String,
-            operation: (Faker) -> String
-        ) = object : SimpleFakerLoremTemplate(project, title) {
-            override fun doGenerate(faker: Faker): String = operation(faker)
-        }
-    }
-}
