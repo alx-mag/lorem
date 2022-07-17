@@ -59,7 +59,7 @@ class LoremPreviewDialog(
                 toolTipText = "Ctrl + F5"
             }
         }
-        renderAdditionalParamsUi(this)
+
         row {
             textArea()
                 .horizontalAlign(HorizontalAlign.FILL)
@@ -76,10 +76,6 @@ class LoremPreviewDialog(
         }
             .resizableRow()
             .layout(RowLayout.INDEPENDENT)
-    }
-
-    private fun renderAdditionalParamsUi(panel: Panel) {
-
     }
 
     fun getText() = vm.preview.get()
