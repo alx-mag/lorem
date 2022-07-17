@@ -5,6 +5,7 @@ import com.github.alxmag.loremipsumgenerator.action.preview.LoremTemplate
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
 import com.github.alxmag.loremipsumgenerator.util.takeIfOk
 import com.intellij.openapi.actionSystem.DataContext
+import com.intellij.openapi.application.runUndoTransparentWriteAction
 import com.intellij.openapi.application.runWriteAction
 import com.intellij.openapi.editor.Caret
 import com.intellij.openapi.editor.Editor
@@ -22,20 +23,39 @@ abstract class LoremActionHandler : EditorActionHandler.ForEachCaret() {
         val project = editor.project ?: return
         val editorContext = EditorContext(project, editor, caret, dataContext)
         val textToPut = createText(editorContext) ?: return
+
         runWriteAction {
-            val document = editor.document
-
-            // Replace selected text
-            if (caret.hasSelection()) {
-                document.replaceString(caret.selectionStart, caret.selectionEnd, textToPut)
-                return@runWriteAction
-            }
-
-            val textOffset = caret.offset
-            document.insertString(textOffset, textToPut)
-            // Select inputted text for ease later manipulations
-            caret.setSelection(textOffset, textOffset + textToPut.length)
+            writeText(editorContext, textToPut)
         }
+
+        val balloon = object : LoremEditorBalloon() {
+            override fun createText(editorContext: EditorContext): String? = this@LoremActionHandler.createText(editorContext)
+
+            override fun writeText(editorContext: EditorContext, text: String) {
+                runUndoTransparentWriteAction {
+                    this@LoremActionHandler.writeText(editorContext, text)
+                }
+            }
+        }
+
+        balloon.showEditorPopup(editorContext)
+    }
+
+
+    private fun writeText(editorContext: EditorContext, textToPut: String) {
+        val document = editorContext.editor.document
+        val caret = editorContext.caret
+        // Replace selected text
+        if (caret.hasSelection()) {
+            document.replaceString(caret.selectionStart, caret.selectionEnd, textToPut)
+            return
+        }
+
+        val textOffset = caret.offset
+        document.insertString(textOffset, textToPut)
+        // Select inputted text for ease later manipulations
+        caret.setSelection(textOffset, textOffset + textToPut.length)
+
     }
 
     protected abstract fun createText(editorContext: EditorContext): String?
