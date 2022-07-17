@@ -66,11 +66,6 @@
 
         </group>
 
-        <action class="com.github.alxmag.loremipsumgenerator.action.name.LoremNameActionGroup"
-                id="lorem.NameAction">
-            <override-text place="popup@LoremEditorPopup"/>
-        </action>
-
         <action class="com.github.alxmag.loremipsumgenerator.action.email.LoremEmailAction"
                 id="lorem.EmailAction">
             <override-text place="popup@LoremEditorPopup"/>
