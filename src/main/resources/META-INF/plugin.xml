@@ -18,6 +18,54 @@
             <override-text place="popup@LoremEditorPopup" />
         </action>
 
+        <group id="lorem.NameGroup" popup="true" >
+            <override-text place="popup@LoremEditorPopup"/>
+
+            <separator key="separator.generated.name"/>
+            <action id="lorem.FullName"
+                    class="com.github.alxmag.loremipsumgenerator.action.name.FullNameAction">
+                <override-text place="popup@LoremEditorPopup"/>
+            </action>
+            <action id="lorem.FirstName"
+                    class="com.github.alxmag.loremipsumgenerator.action.name.FirstNameAction">
+                <override-text place="popup@LoremEditorPopup"/>
+            </action>
+            <action id="lorem.LastName"
+                    class="com.github.alxmag.loremipsumgenerator.action.name.LastNameAction">
+                <override-text place="popup@LoremEditorPopup"/>
+            </action>
+
+            <separator key="separator.character"/>
+            <action id="lorem.WitcherCharacter"
+                    class="com.github.alxmag.loremipsumgenerator.action.name.TheWitcherNameAction">
+                <override-text place="popup@LoremEditorPopup"/>
+            </action>
+            <action id="lorem.GoTCharacter"
+                    class="com.github.alxmag.loremipsumgenerator.action.name.GoTNameAction">
+                <override-text place="popup@LoremEditorPopup"/>
+            </action>
+            <action id="lorem.RickAndMortyCharacter"
+                    class="com.github.alxmag.loremipsumgenerator.action.name.RickAndMortyNameAction">
+                <override-text place="popup@LoremEditorPopup"/>
+            </action>
+            <action id="lorem.BackToTheFutureCharacter"
+                    class="com.github.alxmag.loremipsumgenerator.action.name.BackToTheFutureNameAction">
+                <override-text place="popup@LoremEditorPopup"/>
+            </action>
+
+
+            <separator key="separator.known.person"/>
+            <action id="lorem.ArtistName"
+                    class="com.github.alxmag.loremipsumgenerator.action.name.ArtistNameAction">
+                <override-text place="popup@LoremEditorPopup"/>
+            </action>
+            <action id="lorem.BasketballPlayerName"
+                    class="com.github.alxmag.loremipsumgenerator.action.name.BasketballPlayerNameAction">
+                <override-text place="popup@LoremEditorPopup"/>
+            </action>
+
+        </group>
+
         <action class="com.github.alxmag.loremipsumgenerator.action.name.LoremNameActionGroup"
                 id="lorem.NameAction">
             <override-text place="popup@LoremEditorPopup"/>
@@ -54,7 +102,7 @@
             <reference id="lorem.TextAction"/>
 
             <separator key="separator.personal.information.text"/>
-            <reference id="lorem.NameAction"/>
+            <reference id="lorem.NameGroup"/>
             <reference id="lorem.EmailAction"/>
             <reference id="lorem.PhoneAction"/>
 

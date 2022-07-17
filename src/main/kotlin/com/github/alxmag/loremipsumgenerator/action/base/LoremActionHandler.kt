@@ -2,6 +2,7 @@ package com.github.alxmag.loremipsumgenerator.action.base
 
 import com.github.alxmag.loremipsumgenerator.action.preview.LoremPreviewDialog
 import com.github.alxmag.loremipsumgenerator.action.preview.LoremTemplate
+import com.github.alxmag.loremipsumgenerator.template.FakerManager
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
 import com.github.alxmag.loremipsumgenerator.util.takeIfOk
 import com.intellij.openapi.actionSystem.DataContext
@@ -11,6 +12,7 @@ import com.intellij.openapi.editor.Caret
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.actionSystem.EditorAction
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler
+import net.datafaker.Faker
 import org.jetbrains.annotations.Nls
 import org.jetbrains.annotations.Nls.Capitalization.Title
 
@@ -83,6 +85,21 @@ abstract class LoremActionHandler : EditorActionHandler.ForEachCaret() {
     companion object {
         fun create(operation: (EditorContext) -> String?) = object : LoremActionHandler() {
             override fun createText(editorContext: EditorContext) = operation(editorContext)
+        }
+    }
+}
+
+abstract class LoremFakerActonHandler : LoremActionHandler() {
+    override fun createText(editorContext: EditorContext): String? {
+        val faker = FakerManager.getInstance(editorContext.project).getFaker()
+        return doCreateText(faker, editorContext)
+    }
+
+    abstract fun doCreateText(faker: Faker, editorContext: EditorContext): String?
+
+    companion object {
+        fun simpleFakerHandler(generate: (Faker) -> String?) = object : LoremFakerActonHandler() {
+            override fun doCreateText(faker: Faker, editorContext: EditorContext) = generate(faker)
         }
     }
 }
