@@ -50,12 +50,15 @@
 
         <!-- Popup menu group -->
         <group id="lorem.GeneratePopupGroup">
+            <separator key="separator.text.text"/>
             <reference id="lorem.TextAction"/>
-            <separator/>
+
+            <separator key="separator.personal.information.text"/>
             <reference id="lorem.NameAction"/>
             <reference id="lorem.EmailAction"/>
             <reference id="lorem.PhoneAction"/>
-            <separator/>
+
+            <separator key="separator.location.text"/>
             <reference id="lorem.CityAction"/>
             <reference id="lorem.CountryAction"/>
             <reference id="lorem.StateAction"/>
