@@ -12,6 +12,11 @@
 
     </extensions>
 
+    <applicationListeners>
+        <listener class="com.github.alxmag.loremipsumgenerator.action.recent.LoremActionsListener"
+                  topic="com.intellij.openapi.actionSystem.ex.AnActionListener"/>
+    </applicationListeners>
+
     <actions>
         <action class="com.github.alxmag.loremipsumgenerator.action.placeholdertext.ui.LoremPlaceholderTextActionGroup"
                 id="lorem.TextAction">
@@ -91,8 +96,17 @@
             <override-text place="popup@LoremEditorPopup"/>
         </action>
 
+        <!--Recent Actions-->
+        <group id="lorem.RecentGroup"
+               class="com.github.alxmag.loremipsumgenerator.action.recent.LoremRecentActionsGroup"
+               popup="true">
+            <override-text place="popup@LoremEditorPopup"/>
+        </group>
+
         <!-- Popup menu group -->
         <group id="lorem.GeneratePopupGroup">
+            <reference id="lorem.RecentGroup"/>
+
             <separator key="separator.text.text"/>
             <reference id="lorem.TextAction"/>
 

@@ -1,16 +1,16 @@
 package com.github.alxmag.loremipsumgenerator.action.name
 
+import com.github.alxmag.loremipsumgenerator.action.base.LoremEditorAction
 import com.github.alxmag.loremipsumgenerator.action.base.LoremFakerActonHandler.Companion.simpleFakerHandler
-import com.intellij.openapi.editor.actionSystem.EditorAction
 
-class FullNameAction : EditorAction(simpleFakerHandler { it.name().fullName() })
-class FirstNameAction : EditorAction(simpleFakerHandler { it.name().firstName() })
-class LastNameAction : EditorAction(simpleFakerHandler { it.name().lastName() })
+class FullNameAction : LoremEditorAction(simpleFakerHandler { it.name().fullName() })
+class FirstNameAction : LoremEditorAction(simpleFakerHandler { it.name().firstName() })
+class LastNameAction : LoremEditorAction(simpleFakerHandler { it.name().lastName() })
 
-class TheWitcherNameAction : EditorAction(simpleFakerHandler { it.witcher().character() })
-class RickAndMortyNameAction : EditorAction(simpleFakerHandler { it.rickAndMorty().character() })
-class GoTNameAction : EditorAction(simpleFakerHandler { it.gameOfThrones().character() })
-class BackToTheFutureNameAction : EditorAction(simpleFakerHandler { it.backToTheFuture().character() })
+class TheWitcherNameAction : LoremEditorAction(simpleFakerHandler { it.witcher().character() })
+class RickAndMortyNameAction : LoremEditorAction(simpleFakerHandler { it.rickAndMorty().character() })
+class GoTNameAction : LoremEditorAction(simpleFakerHandler { it.gameOfThrones().character() })
+class BackToTheFutureNameAction : LoremEditorAction(simpleFakerHandler { it.backToTheFuture().character() })
 
-class ArtistNameAction : EditorAction(simpleFakerHandler { it.artist().name() })
-class BasketballPlayerNameAction : EditorAction(simpleFakerHandler { it.basketball().players() })
+class ArtistNameAction : LoremEditorAction(simpleFakerHandler { it.artist().name() })
+class BasketballPlayerNameAction : LoremEditorAction(simpleFakerHandler { it.basketball().players() })
