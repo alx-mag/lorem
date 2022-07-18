@@ -1,4 +1,4 @@
-package com.github.alxmag.loremipsumgenerator.template
+package com.github.alxmag.loremipsumgenerator.service
 
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service

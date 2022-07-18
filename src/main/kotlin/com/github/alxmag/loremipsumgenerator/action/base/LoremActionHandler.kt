@@ -1,6 +1,6 @@
 package com.github.alxmag.loremipsumgenerator.action.base
 
-import com.github.alxmag.loremipsumgenerator.template.FakerManager
+import com.github.alxmag.loremipsumgenerator.service.FakerManager
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
 import com.intellij.openapi.actionSystem.DataContext
 import com.intellij.openapi.application.runUndoTransparentWriteAction
@@ -8,6 +8,7 @@ import com.intellij.openapi.application.runWriteAction
 import com.intellij.openapi.editor.Caret
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler
+import com.thedeanda.lorem.LoremIpsum
 import net.datafaker.Faker
 
 /**
@@ -78,17 +79,25 @@ abstract class LoremActionHandler : EditorActionHandler.ForEachCaret() {
 
 }
 
-abstract class LoremFakerActonHandler : LoremActionHandler() {
+abstract class LoremTextFactoryActonHandler<T> : LoremActionHandler() {
     override fun createText(editorContext: EditorContext): String? {
-        val faker = FakerManager.getInstance(editorContext.project).getFaker()
-        return doCreateText(faker, editorContext)
+        val factory = getFactory(editorContext)
+        return doCreateText(factory, editorContext)
     }
 
-    abstract fun doCreateText(faker: Faker, editorContext: EditorContext): String?
+    protected abstract fun getFactory(editorContext: EditorContext): T
+
+    abstract fun doCreateText(factory: T, editorContext: EditorContext): String?
 
     companion object {
-        fun simpleFakerHandler(generate: (Faker) -> String?) = object : LoremFakerActonHandler() {
-            override fun doCreateText(faker: Faker, editorContext: EditorContext) = generate(faker)
+        fun simpleFakerHandler(generate: (Faker) -> String?) = object : LoremTextFactoryActonHandler<Faker>() {
+            override fun getFactory(editorContext: EditorContext): Faker = FakerManager.getInstance(editorContext.project).getFaker()
+            override fun doCreateText(factory: Faker, editorContext: EditorContext) = generate(factory)
+        }
+
+        fun simpleLoremIpsumHandler(generate: (LoremIpsum) -> String?) = object : LoremTextFactoryActonHandler<LoremIpsum>() {
+            override fun getFactory(editorContext: EditorContext) = LoremIpsum()
+            override fun doCreateText(factory: LoremIpsum, editorContext: EditorContext) = generate(factory)
         }
     }
 }
