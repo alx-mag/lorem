@@ -96,6 +96,9 @@
             <override-text place="popup@LoremEditorPopup"/>
         </action>
 
+        <action id="lorem.StreetAddressAction"
+                class="com.github.alxmag.loremipsumgenerator.action.address.LoremStreetAction"/>
+
         <!--Recent Actions-->
         <group id="lorem.RecentGroup"
                class="com.github.alxmag.loremipsumgenerator.action.recent.LoremRecentActionsGroup"
@@ -119,6 +122,7 @@
             <reference id="lorem.CityAction"/>
             <reference id="lorem.CountryAction"/>
             <reference id="lorem.StateAction"/>
+            <reference id="lorem.StreetAddressAction"/>
         </group>
 
         <!-- Main popup action -->
