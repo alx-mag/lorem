@@ -93,6 +93,10 @@
             <override-text place="popup@LoremEditorPopup"/>
         </action>
 
+        <action class="com.github.alxmag.loremipsumgenerator.action.personalinfo.LoremCreditCardNumberAction"
+                icon="/icons/credit_card.svg"
+                id="lorem.CreditCardAction"/>
+
         <!-- Popup menu group -->
         <group id="lorem.GeneratePopupGroup">
             <!--Recent Actions-->
@@ -130,6 +134,7 @@
             <reference id="lorem.NameGroup"/>
             <reference id="lorem.EmailAction"/>
             <reference id="lorem.PhoneAction"/>
+            <reference id="lorem.CreditCardAction"/>
 
             <separator key="separator.location.text"/>
             <group id="lorem.LandGroup" popup="true" icon="/icons/world.svg">

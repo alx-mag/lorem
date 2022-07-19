@@ -1,11 +1,14 @@
 package com.github.alxmag.loremipsumgenerator.action.personalinfo
 
+import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.action.base.LoremEditorAction
 import com.github.alxmag.loremipsumgenerator.action.base.LoremTextFactoryActonHandler.Companion.simpleFakerHandler
 import com.github.alxmag.loremipsumgenerator.action.base.LoremTextFactoryActonHandler.Companion.simpleLoremIpsumHandler
 
 class LoremEmailAction : LoremEditorAction(simpleLoremIpsumHandler { it.email })
 class LoremPhoneAction : LoremEditorAction(simpleLoremIpsumHandler { it.phone })
+class LoremCreditCardNumberAction :
+    LoremEditorAction(simpleFakerHandler { it.business().creditCardNumber() }, message("action.credit.card"))
 
 class FullNameAction : LoremEditorAction(simpleFakerHandler { it.name().fullName() })
 class FirstNameAction : LoremEditorAction(simpleFakerHandler { it.name().firstName() })
