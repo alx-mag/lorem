@@ -99,16 +99,14 @@
         <action id="lorem.StreetAddressAction"
                 class="com.github.alxmag.loremipsumgenerator.action.address.LoremStreetAction"/>
 
-        <!--Recent Actions-->
-        <group id="lorem.RecentGroup"
-               class="com.github.alxmag.loremipsumgenerator.action.recent.LoremRecentActionsGroup"
-               popup="true">
-            <override-text place="popup@LoremEditorPopup"/>
-        </group>
-
         <!-- Popup menu group -->
         <group id="lorem.GeneratePopupGroup">
-            <reference id="lorem.RecentGroup"/>
+            <!--Recent Actions-->
+            <group id="lorem.RecentGroup"
+                   class="com.github.alxmag.loremipsumgenerator.action.recent.LoremRecentActionsGroup"
+                   popup="true">
+                <override-text place="popup@LoremEditorPopup"/>
+            </group>
 
             <separator key="separator.text.text"/>
             <reference id="lorem.TextAction"/>
@@ -119,10 +117,18 @@
             <reference id="lorem.PhoneAction"/>
 
             <separator key="separator.location.text"/>
-            <reference id="lorem.CityAction"/>
-            <reference id="lorem.CountryAction"/>
-            <reference id="lorem.StateAction"/>
-            <reference id="lorem.StreetAddressAction"/>
+            <group id="lorem.LandGroup" popup="true">
+                <reference id="lorem.CountryAction"/>
+                <reference id="lorem.StateAction"/>
+                <reference id="lorem.CityAction"/>
+            </group>
+            <group id="lorem.AddressGroup" popup="true">
+                <action class="com.github.alxmag.loremipsumgenerator.action.address.FullAddressAction"
+                        id="lorem.FullAddress"/>
+                <reference id="lorem.StreetAddressAction"/>
+                <action class="com.github.alxmag.loremipsumgenerator.action.address.MailBoxAction"
+                        id="lorem.MailBoxAction"/>
+            </group>
         </group>
 
         <!-- Main popup action -->

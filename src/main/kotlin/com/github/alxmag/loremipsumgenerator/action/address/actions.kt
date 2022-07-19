@@ -8,8 +8,17 @@ class LoremCityAction : LoremEditorAction(simpleFakerHandler { it.address().city
 class LoremCountryAction : LoremEditorAction(simpleFakerHandler { it.address().country() })
 class LoremStateAction : LoremEditorAction(simpleFakerHandler { it.address().state() })
 
-// TODO register
 class LoremStreetAction : LoremEditorAction(
     simpleFakerHandler { it.address().streetAddress() },
     message("action.street.address")
+)
+
+class FullAddressAction : LoremEditorAction(
+    simpleFakerHandler { it.address().fullAddress() },
+    message("action.full.address")
+)
+
+class MailBoxAction : LoremEditorAction(
+    simpleFakerHandler { it.address().mailBox() },
+    message("action.mailbox")
 )
