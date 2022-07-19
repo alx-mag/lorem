@@ -110,6 +110,20 @@
 
             <separator key="separator.text.text"/>
             <reference id="lorem.TextAction"/>
+            <group id="lorem.QuoteGroup" popup="true">
+                <action class="com.github.alxmag.loremipsumgenerator.action.text.YodaQuoteAction"
+                        id="lorem.YodaQuote"/>
+                <action class="com.github.alxmag.loremipsumgenerator.action.text.BackToTheFutureQuoteAction"
+                        id="lorem.BackToTheFutureQuote"/>
+                <action class="com.github.alxmag.loremipsumgenerator.action.text.GoTQuoteAction"
+                        id="lorem.GoTQuote"/>
+                <action class="com.github.alxmag.loremipsumgenerator.action.text.HarryPotterQuoteAction"
+                        id="lorem.HarryPotterQuote"/>
+                <action class="com.github.alxmag.loremipsumgenerator.action.text.RickAndMortyQuoteAction"
+                        id="lorem.RickAndMortyQuote"/>
+                <action class="com.github.alxmag.loremipsumgenerator.action.text.WitcherQuoteAction"
+                        id="lorem.WitcherQuote"/>
+            </group>
 
             <separator key="separator.personal.information.text"/>
             <reference id="lorem.NameGroup"/>
