@@ -19,41 +19,49 @@
 
     <actions>
         <action class="com.github.alxmag.loremipsumgenerator.action.placeholdertext.ui.LoremPlaceholderTextActionGroup"
+                icon="/icons/text.svg"
                 id="lorem.TextAction">
             <override-text place="popup@LoremEditorPopup" />
         </action>
 
-        <group id="lorem.NameGroup" popup="true" >
+        <group id="lorem.NameGroup" popup="true" icon="/icons/name.svg">
             <override-text place="popup@LoremEditorPopup"/>
 
             <separator key="separator.generated.name"/>
             <action id="lorem.FullName"
+                    icon="/icons/name.svg"
                     class="com.github.alxmag.loremipsumgenerator.action.personalinfo.FullNameAction">
                 <override-text place="popup@LoremEditorPopup"/>
             </action>
             <action id="lorem.FirstName"
+                    icon="/icons/name.svg"
                     class="com.github.alxmag.loremipsumgenerator.action.personalinfo.FirstNameAction">
                 <override-text place="popup@LoremEditorPopup"/>
             </action>
             <action id="lorem.LastName"
+                    icon="/icons/name.svg"
                     class="com.github.alxmag.loremipsumgenerator.action.personalinfo.LastNameAction">
                 <override-text place="popup@LoremEditorPopup"/>
             </action>
 
             <separator key="separator.character"/>
             <action id="lorem.WitcherCharacter"
+                    icon="/icons/name.svg"
                     class="com.github.alxmag.loremipsumgenerator.action.personalinfo.TheWitcherNameAction">
                 <override-text place="popup@LoremEditorPopup"/>
             </action>
             <action id="lorem.GoTCharacter"
+                    icon="/icons/name.svg"
                     class="com.github.alxmag.loremipsumgenerator.action.personalinfo.GoTNameAction">
                 <override-text place="popup@LoremEditorPopup"/>
             </action>
             <action id="lorem.RickAndMortyCharacter"
+                    icon="/icons/name.svg"
                     class="com.github.alxmag.loremipsumgenerator.action.personalinfo.RickAndMortyNameAction">
                 <override-text place="popup@LoremEditorPopup"/>
             </action>
             <action id="lorem.BackToTheFutureCharacter"
+                    icon="/icons/name.svg"
                     class="com.github.alxmag.loremipsumgenerator.action.personalinfo.BackToTheFutureNameAction">
                 <override-text place="popup@LoremEditorPopup"/>
             </action>
@@ -61,10 +69,12 @@
 
             <separator key="separator.known.person"/>
             <action id="lorem.ArtistName"
+                    icon="/icons/name.svg"
                     class="com.github.alxmag.loremipsumgenerator.action.personalinfo.ArtistNameAction">
                 <override-text place="popup@LoremEditorPopup"/>
             </action>
             <action id="lorem.BasketballPlayerName"
+                    icon="/icons/name.svg"
                     class="com.github.alxmag.loremipsumgenerator.action.personalinfo.BasketballPlayerNameAction">
                 <override-text place="popup@LoremEditorPopup"/>
             </action>
@@ -72,37 +82,22 @@
         </group>
 
         <action class="com.github.alxmag.loremipsumgenerator.action.personalinfo.LoremEmailAction"
+                icon="/icons/email.svg"
                 id="lorem.EmailAction">
             <override-text place="popup@LoremEditorPopup"/>
         </action>
 
         <action class="com.github.alxmag.loremipsumgenerator.action.personalinfo.LoremPhoneAction"
+                icon="/icons/phone.svg"
                 id="lorem.PhoneAction">
             <override-text place="popup@LoremEditorPopup"/>
         </action>
-
-        <action class="com.github.alxmag.loremipsumgenerator.action.address.LoremCityAction"
-                id="lorem.CityAction">
-            <override-text place="popup@LoremEditorPopup"/>
-        </action>
-
-        <action class="com.github.alxmag.loremipsumgenerator.action.address.LoremCountryAction"
-                id="lorem.CountryAction">
-            <override-text place="popup@LoremEditorPopup"/>
-        </action>
-
-        <action class="com.github.alxmag.loremipsumgenerator.action.address.LoremStateAction"
-                id="lorem.StateAction">
-            <override-text place="popup@LoremEditorPopup"/>
-        </action>
-
-        <action id="lorem.StreetAddressAction"
-                class="com.github.alxmag.loremipsumgenerator.action.address.LoremStreetAction"/>
 
         <!-- Popup menu group -->
         <group id="lorem.GeneratePopupGroup">
             <!--Recent Actions-->
             <group id="lorem.RecentGroup"
+                   icon="/icons/history.svg"
                    class="com.github.alxmag.loremipsumgenerator.action.recent.LoremRecentActionsGroup"
                    popup="true">
                 <override-text place="popup@LoremEditorPopup"/>
@@ -110,18 +105,24 @@
 
             <separator key="separator.text.text"/>
             <reference id="lorem.TextAction"/>
-            <group id="lorem.QuoteGroup" popup="true">
+            <group id="lorem.QuoteGroup" popup="true" icon="/icons/quote.svg">
                 <action class="com.github.alxmag.loremipsumgenerator.action.text.YodaQuoteAction"
+                        icon="/icons/quote.svg"
                         id="lorem.YodaQuote"/>
                 <action class="com.github.alxmag.loremipsumgenerator.action.text.BackToTheFutureQuoteAction"
+                        icon="/icons/quote.svg"
                         id="lorem.BackToTheFutureQuote"/>
                 <action class="com.github.alxmag.loremipsumgenerator.action.text.GoTQuoteAction"
+                        icon="/icons/quote.svg"
                         id="lorem.GoTQuote"/>
                 <action class="com.github.alxmag.loremipsumgenerator.action.text.HarryPotterQuoteAction"
+                        icon="/icons/quote.svg"
                         id="lorem.HarryPotterQuote"/>
                 <action class="com.github.alxmag.loremipsumgenerator.action.text.RickAndMortyQuoteAction"
+                        icon="/icons/quote.svg"
                         id="lorem.RickAndMortyQuote"/>
                 <action class="com.github.alxmag.loremipsumgenerator.action.text.WitcherQuoteAction"
+                        icon="/icons/quote.svg"
                         id="lorem.WitcherQuote"/>
             </group>
 
@@ -131,16 +132,35 @@
             <reference id="lorem.PhoneAction"/>
 
             <separator key="separator.location.text"/>
-            <group id="lorem.LandGroup" popup="true">
-                <reference id="lorem.CountryAction"/>
-                <reference id="lorem.StateAction"/>
-                <reference id="lorem.CityAction"/>
+            <group id="lorem.LandGroup" popup="true" icon="/icons/world.svg">
+                <action class="com.github.alxmag.loremipsumgenerator.action.address.LoremCountryAction"
+                        icon="/icons/world.svg"
+                        id="lorem.CountryAction">
+                    <override-text place="popup@LoremEditorPopup"/>
+                </action>
+
+                <action class="com.github.alxmag.loremipsumgenerator.action.address.LoremStateAction"
+                        icon="/icons/world.svg"
+                        id="lorem.StateAction">
+                    <override-text place="popup@LoremEditorPopup"/>
+                </action>
+
+                <action class="com.github.alxmag.loremipsumgenerator.action.address.LoremCityAction"
+                        icon="/icons/world.svg"
+                        id="lorem.CityAction">
+                    <override-text place="popup@LoremEditorPopup"/>
+                </action>
+
             </group>
-            <group id="lorem.AddressGroup" popup="true">
+            <group id="lorem.AddressGroup" popup="true" icon="/icons/address.svg">
                 <action class="com.github.alxmag.loremipsumgenerator.action.address.FullAddressAction"
+                        icon="/icons/address.svg"
                         id="lorem.FullAddress"/>
-                <reference id="lorem.StreetAddressAction"/>
+                <action id="lorem.StreetAddressAction"
+                        icon="/icons/address.svg"
+                        class="com.github.alxmag.loremipsumgenerator.action.address.LoremStreetAction"/>
                 <action class="com.github.alxmag.loremipsumgenerator.action.address.MailBoxAction"
+                        icon="/icons/address.svg"
                         id="lorem.MailBoxAction"/>
             </group>
         </group>
