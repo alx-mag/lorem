@@ -97,6 +97,10 @@
                 icon="/icons/credit_card.svg"
                 id="lorem.CreditCardAction"/>
 
+        <action id="lorem.RecentsPopupAction"
+                class="com.github.alxmag.loremipsumgenerator.action.LoremRecentActionsPopupAction">
+        </action>
+
         <!-- Popup menu group -->
         <group id="lorem.GeneratePopupGroup">
             <!--Recent Actions-->
