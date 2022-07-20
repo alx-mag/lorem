@@ -5,6 +5,7 @@ import com.github.alxmag.loremipsumgenerator.action.base.LoremPerformableActionG
 import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextGenerator
 import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextModel
 import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextSettings
+import com.github.alxmag.loremipsumgenerator.action.recent.LoremMemorizableAction
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
 import com.github.alxmag.loremipsumgenerator.util.takeIfOk
 import com.intellij.openapi.actionSystem.AnAction
@@ -17,15 +18,19 @@ class LoremPlaceholderTextActionGroup : LoremPerformableActionGroupBase.WithRece
     override fun getHistoryActions(): List<AnAction> = LoremPlaceholderTextSettings.getInstance()
         .textModelsHistory
         .map(LoremPlaceholderTextActionHandler::FromHistory)
-        .map(::LoremPlaceholderTextAction)
-}
+        .map { LoremPlaceholderTextAction.FromHistory(this, it) }
 
-class LoremPlaceholderTextAction(handler: LoremPlaceholderTextActionHandler) : EditorAction(handler) {
-    init {
-        val textModel = handler.initialTextModel
-        templatePresentation.text = textModel.amount.toString() + " " + textModel.unit.visibleName(true)
+    private open class LoremPlaceholderTextAction(handler: LoremPlaceholderTextActionHandler) : EditorAction(handler) {
+        init {
+            val textModel = handler.initialTextModel
+            templatePresentation.text = textModel.amount.toString() + " " + textModel.unit.visibleName(true)
+        }
+
+        class FromHistory(parentGroup: LoremMemorizableAction, handler: LoremPlaceholderTextActionHandler) :
+            LoremPlaceholderTextAction(handler), LoremMemorizableAction by parentGroup
     }
 }
+
 
 abstract class LoremPlaceholderTextActionHandler : LoremActionHandler.ByModel<LoremPlaceholderTextModel>() {
 
