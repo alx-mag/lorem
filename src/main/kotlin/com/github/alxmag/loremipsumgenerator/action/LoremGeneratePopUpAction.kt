@@ -1,8 +1,10 @@
 package com.github.alxmag.loremipsumgenerator.action
 
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
+import com.github.alxmag.loremipsumgenerator.action.base.LoremEditorBalloonManager
 import com.github.alxmag.loremipsumgenerator.action.recent.LoremRecentActionsManager
 import com.github.alxmag.loremipsumgenerator.util.LoremActionPlace
+import com.intellij.codeInsight.hint.HintManagerImpl
 import com.intellij.openapi.actionSystem.*
 import com.intellij.openapi.application.invokeLater
 import com.intellij.openapi.components.Service
@@ -16,7 +18,7 @@ import javax.swing.SwingConstants
 /**
  * Shows pop-up with placeholder text generation variants
  */
-class LoremGeneratePopUpAction : AnAction() {
+class LoremGeneratePopUpAction : AnAction(), HintManagerImpl.ActionToIgnore {
 
     override fun update(e: AnActionEvent) {
         e.presentation.isEnabledAndVisible = e.getData(CommonDataKeys.EDITOR) != null
@@ -24,6 +26,13 @@ class LoremGeneratePopUpAction : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
+
+        // Repeat last action if editor balloon is showing
+        val editorBalloonManager = LoremEditorBalloonManager.getInstance(project)
+        if (editorBalloonManager.isShowing() && editorBalloonManager.repeatAction()) {
+            return
+        }
+
         LoremPopupManager.getInstance(project).performPopUpAction(e)
     }
 

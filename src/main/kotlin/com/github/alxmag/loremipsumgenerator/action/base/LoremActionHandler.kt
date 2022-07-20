@@ -25,17 +25,7 @@ abstract class LoremActionHandler : EditorActionHandler.ForEachCaret() {
             writeText(editorContext, textToPut)
         }
 
-        val balloon = object : LoremEditorBalloon() {
-            override fun createText(editorContext: EditorContext): String? = this@LoremActionHandler.createText(editorContext)
-
-            override fun writeText(editorContext: EditorContext, text: String) {
-                runUndoTransparentWriteAction {
-                    this@LoremActionHandler.writeText(editorContext, text)
-                }
-            }
-        }
-
-        balloon.showEditorPopup(editorContext)
+        LoremEditorBalloonManager.getInstance(project).show(getTextHandler(), editorContext)
     }
 
 
@@ -57,7 +47,18 @@ abstract class LoremActionHandler : EditorActionHandler.ForEachCaret() {
 
     protected abstract fun createText(editorContext: EditorContext): String?
 
+    private fun getTextHandler() = object : LoremEditorBalloonManager.TextHandler {
+        override fun createText(editorContext: EditorContext): String? = this@LoremActionHandler.createText(editorContext)
+
+        override fun writeText(editorContext: EditorContext, text: String) {
+            runUndoTransparentWriteAction {
+                this@LoremActionHandler.writeText(editorContext, text)
+            }
+        }
+    }
+
     abstract class ByModel<T> : LoremActionHandler() {
+
         final override fun createText(editorContext: EditorContext): String? {
             val model = getModel(editorContext) ?: return null
             afterModelProvided(model)
@@ -65,7 +66,7 @@ abstract class LoremActionHandler : EditorActionHandler.ForEachCaret() {
         }
 
         /**
-         * Provides generation model. This can be provided via dialog or programmaticaly
+         * Provides generation model. This can be provided via dialog or programmatically
          */
         protected abstract fun getModel(editorContext: EditorContext): T?
 
@@ -73,10 +74,8 @@ abstract class LoremActionHandler : EditorActionHandler.ForEachCaret() {
          * Used to store model into history
          */
         protected abstract fun afterModelProvided(model: T)
-
         protected abstract fun generateText(editorContext: EditorContext, model: T): String
     }
-
 }
 
 abstract class LoremTextFactoryActonHandler<T> : LoremActionHandler() {
