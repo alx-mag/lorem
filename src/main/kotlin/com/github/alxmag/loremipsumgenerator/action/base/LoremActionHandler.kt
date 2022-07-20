@@ -3,8 +3,7 @@ package com.github.alxmag.loremipsumgenerator.action.base
 import com.github.alxmag.loremipsumgenerator.service.FakerManager
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
 import com.intellij.openapi.actionSystem.DataContext
-import com.intellij.openapi.application.runUndoTransparentWriteAction
-import com.intellij.openapi.application.runWriteAction
+import com.intellij.openapi.command.WriteCommandAction.runWriteCommandAction
 import com.intellij.openapi.editor.Caret
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler
@@ -16,12 +15,14 @@ import net.datafaker.Faker
  */
 abstract class LoremActionHandler : EditorActionHandler.ForEachCaret() {
 
+    override fun executeInCommand(editor: Editor, dataContext: DataContext?): Boolean = false
+
     override fun doExecute(editor: Editor, caret: Caret, dataContext: DataContext?) {
         val project = editor.project ?: return
         val editorContext = EditorContext(project, editor, caret, dataContext)
         val textToPut = createText(editorContext) ?: return
 
-        runWriteAction {
+        runWriteCommandAction(project) {
             writeText(editorContext, textToPut)
         }
 
@@ -42,18 +43,16 @@ abstract class LoremActionHandler : EditorActionHandler.ForEachCaret() {
         document.insertString(textOffset, textToPut)
         // Select inputted text for ease later manipulations
         caret.setSelection(textOffset, textOffset + textToPut.length)
-
     }
 
     protected abstract fun createText(editorContext: EditorContext): String?
 
     private fun getTextHandler() = object : LoremEditorBalloonManager.TextHandler {
-        override fun createText(editorContext: EditorContext): String? = this@LoremActionHandler.createText(editorContext)
+        override fun createText(editorContext: EditorContext): String? =
+            this@LoremActionHandler.createText(editorContext)
 
-        override fun writeText(editorContext: EditorContext, text: String) {
-            runUndoTransparentWriteAction {
-                this@LoremActionHandler.writeText(editorContext, text)
-            }
+        override fun writeText(editorContext: EditorContext, text: String) =  runWriteCommandAction(editorContext.project) {
+            this@LoremActionHandler.writeText(editorContext, text)
         }
     }
 
@@ -90,13 +89,16 @@ abstract class LoremTextFactoryActonHandler<T> : LoremActionHandler() {
 
     companion object {
         fun simpleFakerHandler(generate: (Faker) -> String?) = object : LoremTextFactoryActonHandler<Faker>() {
-            override fun getFactory(editorContext: EditorContext): Faker = FakerManager.getInstance(editorContext.project).getFaker()
+            override fun getFactory(editorContext: EditorContext): Faker =
+                FakerManager.getInstance(editorContext.project).getFaker()
+
             override fun doCreateText(factory: Faker, editorContext: EditorContext) = generate(factory)
         }
 
-        fun simpleLoremIpsumHandler(generate: (LoremIpsum) -> String?) = object : LoremTextFactoryActonHandler<LoremIpsum>() {
-            override fun getFactory(editorContext: EditorContext) = LoremIpsum()
-            override fun doCreateText(factory: LoremIpsum, editorContext: EditorContext) = generate(factory)
-        }
+        fun simpleLoremIpsumHandler(generate: (LoremIpsum) -> String?) =
+            object : LoremTextFactoryActonHandler<LoremIpsum>() {
+                override fun getFactory(editorContext: EditorContext) = LoremIpsum()
+                override fun doCreateText(factory: LoremIpsum, editorContext: EditorContext) = generate(factory)
+            }
     }
 }
