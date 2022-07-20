@@ -18,6 +18,10 @@ import javax.swing.SwingConstants
  */
 class LoremGeneratePopUpAction : AnAction() {
 
+    override fun update(e: AnActionEvent) {
+        e.presentation.isEnabledAndVisible = e.getData(CommonDataKeys.EDITOR) != null
+    }
+
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         LoremPopupManager.getInstance(project).performPopUpAction(e)
