@@ -9,7 +9,9 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup displayType="BALLOON" id="alxmag.LoremNotifications" key="lorem.notifications.group.name"/>
 
+        <backgroundPostStartupActivity implementation="com.github.alxmag.loremipsumgenerator.service.LoremWelcomeMessageActivity"/>
     </extensions>
 
     <applicationListeners>
@@ -18,10 +20,12 @@
     </applicationListeners>
 
     <actions>
+        <action class="com.github.alxmag.loremipsumgenerator.service.ShowLoremWelcomeMessage" internal="true"/>
+
         <action class="com.github.alxmag.loremipsumgenerator.action.placeholdertext.ui.LoremPlaceholderTextActionGroup"
                 icon="/icons/text.svg"
                 id="lorem.TextAction">
-            <override-text place="popup@LoremEditorPopup" />
+            <override-text place="popup@LoremEditorPopup"/>
         </action>
 
         <group id="lorem.NameGroup" popup="true" icon="/icons/name.svg">
