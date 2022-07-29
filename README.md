@@ -7,12 +7,15 @@
 A plugin for Jet Brains IDEs that provides ability to generate placeholder texts.
 
 <!-- Plugin description -->
-Lorem will help you to generate placeholder that may be used for testing purpose. The following values can be generated using this plugin:
-* Fake latin text (aka "Lorem ipsum")
-* Human name
-* Email
-* Phone number
-* Country/City/State name
+Useful plugin for text generation. This may help you to generate:
+* Placeholder text such as fake latin (aka "Lorem Ipsum") or quote (from movie, video game or fiction) 
+* Personal data such as name, email, phone number, credit card number
+* Address
+* Country, state, city names
+
+More options will be added later.
+
+Based on [Java Faker](https://github.com/DiUS/java-faker) library.
 <!-- Plugin description end -->
 
 ## Installation
