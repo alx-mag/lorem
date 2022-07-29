@@ -17,6 +17,9 @@
     <applicationListeners>
         <listener class="com.github.alxmag.loremipsumgenerator.action.recent.LoremActionsListener"
                   topic="com.intellij.openapi.actionSystem.ex.AnActionListener"/>
+
+        <listener class="com.github.alxmag.loremipsumgenerator.service.LoremPluginListener"
+                  topic="com.intellij.ide.plugins.DynamicPluginListener"/>
     </applicationListeners>
 
     <actions>

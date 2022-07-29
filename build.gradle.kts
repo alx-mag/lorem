@@ -9,7 +9,7 @@ plugins {
     // Kotlin support
     id("org.jetbrains.kotlin.jvm") version "1.7.0"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.7.0-SNAPSHOT"
+    id("org.jetbrains.intellij") version "1.7.0"
     // Gradle Changelog Plugin
     id("org.jetbrains.changelog") version "1.3.1"
     // Gradle Qodana Plugin
@@ -121,6 +121,8 @@ tasks {
         channels.set(listOf(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first()))
     }
 
+    // Tests fix (might be non required in later gradle versions)
+    @Suppress("UNUSED_VARIABLE")
     val test by getting(Test::class) {
         isScanForTestClasses = false
         // Only run tests from classes that end with "Test"
