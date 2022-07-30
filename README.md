@@ -9,7 +9,7 @@ A plugin for Jet Brains IDEs that provides ability to generate placeholder texts
 <!-- Plugin description -->
 Provides actions for text generation.
 
-![lorem_showcase_small](https://user-images.githubusercontent.com/45179557/181886391-a0779f93-da3b-45ce-86db-56329f7d21aa.gif)
+![image](https://user-images.githubusercontent.com/45179557/181908602-a155c6fa-f8e0-4faa-b040-4caddab8423e.png)
 
 This plugin may help you to generate:
 * Placeholder text such as fake latin (aka "Lorem Ipsum") or quote (from movie, video game or fiction) 
