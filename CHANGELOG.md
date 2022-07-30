@@ -1,6 +1,6 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# lorem-ipsum-generator Changelog
+# Lorem Changelog
 
 ## [0.1.0]
 ### Added

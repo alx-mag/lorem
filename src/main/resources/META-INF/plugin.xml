@@ -2,7 +2,7 @@
 <idea-plugin>
     <id>alxmag.lorem</id>
     <name>Lorem</name>
-    <vendor>alx-mag</vendor>
+    <vendor>Aleksandr Magomedov</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 

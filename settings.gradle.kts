@@ -1,4 +1,4 @@
-rootProject.name = "lorem-ipsum-generator"
+rootProject.name = "lorem"
 
 pluginManagement {
     repositories {
