@@ -7,17 +7,13 @@
 A plugin for Jet Brains IDEs that provides ability to generate placeholder texts.
 
 <!-- Plugin description -->
-Provides actions for text generation.
-
-![image](https://user-images.githubusercontent.com/45179557/181908698-e046d4cb-e277-41a3-be98-de3529d8ac3d.png)
-
-This plugin may help you to generate:
+Provides actions for text generation. This plugin may help you to generate:
 * Placeholder text such as fake latin (aka "Lorem Ipsum") or quote (from movie, video game or fiction) 
 * Personal data such as name, email, phone number, credit card number
 * Address
 * Country, state, city names
 
-More options will be added later.
+More features will be added in future releases.
 
 Based on [Java Faker](https://github.com/DiUS/java-faker) library.
 <!-- Plugin description end -->
@@ -26,10 +22,10 @@ Based on [Java Faker](https://github.com/DiUS/java-faker) library.
 
 - Using IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "lorem-ipsum-generator"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "Lorem"</kbd> >
   <kbd>Install Plugin</kbd>
   
 - Manually:
 
-  Download the [latest release](https://github.com/alx-mag/lorem-ipsum-generator/releases/latest) and install it manually using
+  Download the [latest release](https://github.com/alx-mag/alxmag.lorem/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
