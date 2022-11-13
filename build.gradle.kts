@@ -121,7 +121,7 @@ tasks {
         channels.set(listOf(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first()))
     }
 
-    // Tests fix (might be non required in later gradle versions)
+    // Tests issue workaround (https://youtrack.jetbrains.com/issue/IDEA-278926/)
     @Suppress("UNUSED_VARIABLE")
     val test by getting(Test::class) {
         isScanForTestClasses = false

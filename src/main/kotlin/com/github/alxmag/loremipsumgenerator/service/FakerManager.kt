@@ -5,10 +5,10 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import net.datafaker.Faker
 
-@Service
-class FakerManager(private val project: Project) {
+@Service(Service.Level.PROJECT)
+class FakerManager {
 
-    // TODO implement her project settings aware logic in future
+    //TODO implement per-project settings aware logic
     fun getFaker() = Faker()
 
     companion object {
