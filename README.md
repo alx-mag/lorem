@@ -15,7 +15,7 @@ Provides actions for text generation. This plugin may help you to generate:
 
 More features will be added in future releases.
 
-Based on [Java Faker](https://github.com/DiUS/java-faker) library.
+Based on [Datafaker](https://github.com/datafaker-net/datafaker/) library.
 <!-- Plugin description end -->
 
 ## Installation
