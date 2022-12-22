@@ -2,9 +2,15 @@
 
 # Lorem Changelog
 
+## [0.1.1]
+### Added
+- Support for Intellij Platform 2022.3
+### Fixed
+- Plugin description
+
 ## [0.1.0]
 ### Added
-- Added [Java Faker](https://github.com/DiUS/java-faker) library as main placeholder text generation lib
+- Added [Java Faker](https://github.com/datafaker-net/datafaker/) library as main placeholder text generation lib
 - Quotes generation
 - Address generation
 - "Try again" action
