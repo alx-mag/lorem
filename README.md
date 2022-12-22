@@ -8,7 +8,7 @@ A plugin for Jet Brains IDEs that provides ability to generate placeholder texts
 
 <!-- Plugin description -->
 Provides actions for text generation. This plugin may help you to generate:
-* Placeholder text such as fake latin (aka "Lorem Ipsum") or quote (from movie, video game or fiction) 
+* Placeholder text such as fake latin (aka Lorem Ipsum) or quote (from movie, video game or fiction) 
 * Personal data such as name, email, phone number, credit card number
 * Address
 * Country, state, city names
