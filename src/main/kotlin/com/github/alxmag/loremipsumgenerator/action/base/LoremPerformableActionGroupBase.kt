@@ -1,7 +1,7 @@
 package com.github.alxmag.loremipsumgenerator.action.base
 
 import com.github.alxmag.loremipsumgenerator.MyBundle
-import com.github.alxmag.loremipsumgenerator.action.recent.LoremMemorizableAction
+import com.github.alxmag.loremipsumgenerator.action.recent.MemorizableAction
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DefaultActionGroup
@@ -11,7 +11,7 @@ import com.intellij.openapi.actionSystem.Separator
  * Base class for lorem action groups.
  * This group is executable by delegating performance to provided [action].
  */
-abstract class LoremPerformableActionGroupBase : DefaultActionGroup(), LoremMemorizableAction.BySelfId {
+abstract class LoremPerformableActionGroupBase : DefaultActionGroup(), MemorizableAction {
 
     abstract val action: AnAction
 

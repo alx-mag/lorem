@@ -1,6 +1,6 @@
 package com.github.alxmag.loremipsumgenerator.action.base
 
-import com.github.alxmag.loremipsumgenerator.action.recent.LoremMemorizableAction
+import com.github.alxmag.loremipsumgenerator.action.recent.MemorizableAction
 import com.github.alxmag.loremipsumgenerator.util.LoremActionPlace
 import com.intellij.openapi.editor.actionSystem.EditorAction
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler
@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nls
 abstract class LoremEditorAction(
     defaultHandler: EditorActionHandler,
     @Nls(capitalization = Nls.Capitalization.Title) baseName: String? = null
-) : EditorAction(defaultHandler), LoremMemorizableAction.BySelfId {
+) : EditorAction(defaultHandler), MemorizableAction {
     init {
         if (baseName != null) {
             addTextOverride(LoremActionPlace.EDITOR_POPUP, baseName)

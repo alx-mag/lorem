@@ -5,7 +5,7 @@ import com.github.alxmag.loremipsumgenerator.action.base.LoremPerformableActionG
 import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextGenerator
 import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextModel
 import com.github.alxmag.loremipsumgenerator.action.placeholdertext.LoremPlaceholderTextSettings
-import com.github.alxmag.loremipsumgenerator.action.recent.LoremMemorizableAction
+import com.github.alxmag.loremipsumgenerator.action.recent.MemorizableActionIdProvider
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
 import com.github.alxmag.loremipsumgenerator.util.takeIfOk
 import com.intellij.openapi.actionSystem.AnAction
@@ -26,8 +26,8 @@ class LoremPlaceholderTextActionGroup : LoremPerformableActionGroupBase.WithRece
             templatePresentation.text = textModel.amount.toString() + " " + textModel.unit.visibleName(true)
         }
 
-        class FromHistory(parentGroup: LoremMemorizableAction, handler: LoremPlaceholderTextActionHandler) :
-            LoremPlaceholderTextAction(handler), LoremMemorizableAction by parentGroup
+        class FromHistory(parentGroup: MemorizableActionIdProvider, handler: LoremPlaceholderTextActionHandler) :
+            LoremPlaceholderTextAction(handler), MemorizableActionIdProvider by parentGroup
     }
 }
 
