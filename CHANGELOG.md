@@ -2,6 +2,10 @@
 
 # Lorem Changelog
 
+### Unreleased
+### Added
+- Locale settings
+
 ## [0.1.1]
 ### Added
 - Support for Intellij Platform 2022.3
