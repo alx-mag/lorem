@@ -2,7 +2,9 @@ package com.github.alxmag.loremipsumgenerator.action.base
 
 import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.action.LoremGeneratePopUpAction
+import com.github.alxmag.loremipsumgenerator.settings.LoremSettingsAction
 import com.github.alxmag.loremipsumgenerator.util.EditorContext
+import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.application.runUndoTransparentWriteAction
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
@@ -43,6 +45,8 @@ class LoremEditorBalloonManager {
                     KeymapUtil.getShortcutText(LoremGeneratePopUpAction.ID)
                         .takeIf { it.isNotEmpty() }
                         ?.let(::comment)
+
+                    actionButton(ActionManager.getInstance().getAction(LoremSettingsAction.ID))
                 }
             }
 

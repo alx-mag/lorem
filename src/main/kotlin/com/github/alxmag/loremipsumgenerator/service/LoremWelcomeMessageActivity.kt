@@ -2,6 +2,7 @@ package com.github.alxmag.loremipsumgenerator.service
 
 import com.github.alxmag.loremipsumgenerator.LoremNotifications
 import com.github.alxmag.loremipsumgenerator.action.LoremGeneratePopUpAction
+import com.github.alxmag.loremipsumgenerator.settings.LoremPluginSettingsManager
 import com.github.alxmag.loremipsumgenerator.util.LoremConstants
 import com.intellij.ide.plugins.DynamicPluginListener
 import com.intellij.ide.plugins.IdeaPluginDescriptor

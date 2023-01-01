@@ -1,5 +1,6 @@
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.util.zip.ZipFile
 
 fun properties(key: String) = project.findProperty(key).toString()
 
@@ -25,7 +26,7 @@ repositories {
 }
 dependencies {
     implementation("com.thedeanda:lorem:2.1")
-    implementation("net.datafaker:datafaker:1.4.0")
+    implementation("net.datafaker:datafaker:${properties("dataFaker.version")}")
 
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -127,5 +128,21 @@ tasks {
         isScanForTestClasses = false
         // Only run tests from classes that end with "Test"
         include("**/*Test.class")
+    }
+}
+
+task("extractLocales") {
+    fun File.isYamlFile() = parent == null && extension == "yml"
+
+    configurations.runtimeClasspath.configure {
+        val fakerJar = files.find { it.name == "datafaker-${properties("dataFaker.version")}.jar" } ?: return@configure
+        val zip = ZipFile(fakerJar)
+        val root = zip.entries()
+            .asSequence()
+            .map { zipEntry -> File(zipEntry.name) }
+            .filter { it.isYamlFile() }
+            .map { it.name.split(".").first() }
+            .toList()
+        println(root)
     }
 }

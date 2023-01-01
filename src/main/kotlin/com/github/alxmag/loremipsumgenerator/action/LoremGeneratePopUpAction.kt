@@ -21,6 +21,8 @@ class LoremGeneratePopUpAction : AnAction(), HintManagerImpl.ActionToIgnore {
         e.presentation.isEnabledAndVisible = e.getData(CommonDataKeys.EDITOR) != null
     }
 
+    override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.EDT
+
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
 
