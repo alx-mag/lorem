@@ -1,3 +1,6 @@
+import com.jetbrains.plugin.structure.base.utils.create
+import com.jetbrains.plugin.structure.base.utils.exists
+import com.jetbrains.plugin.structure.base.utils.writeText
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.util.zip.ZipFile
@@ -137,12 +140,25 @@ task("extractLocales") {
     configurations.runtimeClasspath.configure {
         val fakerJar = files.find { it.name == "datafaker-${properties("dataFaker.version")}.jar" } ?: return@configure
         val zip = ZipFile(fakerJar)
-        val root = zip.entries()
+        val locales = zip.entries()
             .asSequence()
             .map { zipEntry -> File(zipEntry.name) }
             .filter { it.isYamlFile() }
             .map { it.name.split(".").first() }
             .toList()
-        println(root)
+
+        val resourcesDir = sourceSets.main.get()
+            .resources
+            .srcDirs
+            .find { it.name == "resources" }
+            ?: throw IllegalStateException("`resources` dir is not found")
+
+        val localesFile = resourcesDir.toPath().resolve("locales/dataFakerLocales.txt")
+        if (!localesFile.exists()) {
+            println("Creating file $localesFile")
+            localesFile.create()
+        }
+
+        localesFile.writeText(locales.joinToString(","))
     }
 }
