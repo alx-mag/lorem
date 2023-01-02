@@ -27,6 +27,7 @@ object LocaleUtils {
     private fun getFileReader(filepath: String): Reader? = LocaleUtils::class.java.getResourceAsStream(filepath)
         ?.let(::InputStreamReader)
 
+    // TODO can be changed to Locale.getDisplayName()
     fun getLocaleDisplayName(locale: Locale, displayLocale: Locale = getIdeLocale()) = buildString {
         val displayLanguage = locale.getDisplayLanguage(displayLocale).capitalize(displayLocale)
         append(displayLanguage)
