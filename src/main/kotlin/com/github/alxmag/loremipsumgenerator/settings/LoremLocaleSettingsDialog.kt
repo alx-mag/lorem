@@ -25,12 +25,14 @@ class LoremLocaleSettingsDialog(project: Project) : DialogWrapper(project) {
     override fun createCenterPanel(): JComponent = panel {
         row {
             val localeCellRenderer = LocaleListCellRenderer()
-            comboBox(LocaleUtils.dataFakerLocales, localeCellRenderer)
+            val items = LocaleUtils.dataFakerLocales
+                .sortedBy(LocaleListCellRenderer::getDisplayText)
+            comboBox(items, localeCellRenderer)
                 .bindItem(LoremPluginSettingsManager.getInstance().state::locale.toNullableProperty())
                 .horizontalAlign(HorizontalAlign.FILL)
                 .focused()
                 .applyToComponent {
-                    ComboboxSpeedSearch.installSpeedSearch(this, localeCellRenderer::getMainText)
+                    ComboboxSpeedSearch.installSpeedSearch(this, LocaleListCellRenderer.Companion::getDisplayText)
                 }
         }
         row {
@@ -56,7 +58,7 @@ class LocaleListCellRenderer : DoubleDeckListCellRenderer<Locale?>() {
             hasFocus: Boolean
         ) {
             value ?: return
-            append(getMainText(value), SimpleTextAttributes.REGULAR_BOLD_ATTRIBUTES)
+            append(getDisplayText(value), SimpleTextAttributes.REGULAR_BOLD_ATTRIBUTES)
         }
 
     }
@@ -73,12 +75,27 @@ class LocaleListCellRenderer : DoubleDeckListCellRenderer<Locale?>() {
             hasFocus: Boolean
         ) {
             value ?: return
-            append(LocaleUtils.getLocaleDisplayName(value, value), SimpleTextAttributes.GRAYED_ATTRIBUTES)
+            append(getDisplayText(value, value), SimpleTextAttributes.GRAYED_ATTRIBUTES)
         }
     }
 
-    override fun getMainText(value: Locale?): String {
-        value ?: return ""
-        return LocaleUtils.getLocaleDisplayName(value, LocaleUtils.getIdeLocale())
+
+    companion object {
+        fun getDisplayText(locale: Locale, inLocale: Locale = LocaleUtils.getIdeLocale()): String {
+            return LocaleUtils.getLocaleDisplayName(locale.normalize(), inLocale.normalize())
+        }
+
+        /**
+         * Some locales have non-standard language tag, which causes them to be displayed incorrectly.
+         * This function converts locale into the standard format.
+         */
+        private fun Locale.normalize(): Locale {
+            return when (this.toLanguageTag()) {
+                "by" -> Locale.forLanguageTag("be-BY")
+                "en-PAK" -> Locale.forLanguageTag("en-PK")
+                "pak" -> Locale.forLanguageTag("en-PK")
+                else -> this
+            }
+        }
     }
 }

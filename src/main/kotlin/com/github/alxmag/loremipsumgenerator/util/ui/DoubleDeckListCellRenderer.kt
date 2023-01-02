@@ -21,9 +21,4 @@ abstract class DoubleDeckListCellRenderer<T> : ListCellRenderer<T> {
             .addToTop(top.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus))
             .addToBottom(bottom.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus))
     }
-
-    /**
-     * For speed search.
-     */
-    abstract fun getMainText(value: T): String
 }
