@@ -190,13 +190,25 @@
 
         <!-- Main popup action -->
         <action id="lorem.GeneratePopupAction"
+                icon="/icons/lorem_icon.svg"
                 class="com.github.alxmag.loremipsumgenerator.action.LoremGeneratePopUpAction">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
 
             <keyboard-shortcut first-keystroke="alt shift L" keymap="Mac OS X"/>
             <keyboard-shortcut first-keystroke="alt shift L" keymap="Mac OS X 10.5+"/>
             <keyboard-shortcut first-keystroke="control shift G" keymap="$default"/>
         </action>
+
+        <group id="lorem.EditorPopupMenu"
+               icon="/icons/lorem_icon.svg"
+               popup="false">
+            <!-- Add to editor pop-up menu -->
+            <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="EditorToggleColumnMode"/>
+            <!-- Add to Edit menu -->
+            <add-to-group group-id="EditMenu" anchor="last"/>
+
+            <separator/>
+            <reference id="lorem.GeneratePopupAction"/>
+        </group>
     </actions>
 </idea-plugin>
