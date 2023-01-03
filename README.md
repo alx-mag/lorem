@@ -1,8 +1,12 @@
-# Lorem
+<p>
+<img src="docs/lorem-logo.png" width="305" alt="Lorem logo">
+</p>
 
 ![Build](https://github.com/alx-mag/lorem-ipsum-generator/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/19500-lorem)](https://plugins.jetbrains.com/plugin/19500-lorem)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/19500-lorem)](https://plugins.jetbrains.com/plugin/19500-lorem)
+
+# Lorem Intellij Plugin
 
 A plugin for Jet Brains IDEs that provides ability to generate placeholder texts.
 
