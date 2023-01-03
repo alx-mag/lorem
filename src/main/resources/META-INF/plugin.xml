@@ -183,7 +183,7 @@
             <group id="lorem.settingsGroup" popup="false">
                 <separator/>
                 <action id="lorem.locale.settings"
-                        icon="AllIcons.General.LocalizationSettings"
+                        icon="/icons/localization.svg"
                         class="com.github.alxmag.loremipsumgenerator.settings.LoremSettingsAction"/>
             </group>
         </group>

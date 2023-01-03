@@ -1,5 +1,6 @@
 package com.github.alxmag.loremipsumgenerator.settings
 
+import com.github.alxmag.loremipsumgenerator.MyBundle.message
 import com.github.alxmag.loremipsumgenerator.util.LocaleUtils
 import com.github.alxmag.loremipsumgenerator.util.ui.DoubleDeckListCellRenderer
 import com.intellij.openapi.project.Project
@@ -18,7 +19,7 @@ import javax.swing.JList
 class LoremLocaleSettingsDialog(project: Project) : DialogWrapper(project) {
 
     init {
-        title = "Lorem Locale"
+        title = message("lorem.localization.settings")
         init()
     }
 
@@ -31,15 +32,10 @@ class LoremLocaleSettingsDialog(project: Project) : DialogWrapper(project) {
                 .bindItem(LoremPluginSettingsManager.getInstance().state::locale.toNullableProperty())
                 .horizontalAlign(HorizontalAlign.FILL)
                 .focused()
+                .comment(message("lorem.localization.settings.hint"))
                 .applyToComponent {
                     ComboboxSpeedSearch.installSpeedSearch(this, LocaleListCellRenderer.Companion::getDisplayText)
                 }
-        }
-        row {
-            comment("Locale affects geography-specific values such as regions, phone numbers, emails etc.")
-        }
-        row {
-            comment("Please note that not all actions have a localized version.")
         }
     }
 }
