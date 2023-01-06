@@ -8,18 +8,75 @@
 
 # Lorem Intellij Plugin
 
-A plugin for Jet Brains IDEs that provides ability to generate placeholder texts.
-
 <!-- Plugin description -->
-Provides actions for text generation. This plugin may help you to generate:
-* Placeholder text such as fake latin (aka Lorem Ipsum) or quote (from movie, video game or fiction) 
-* Personal data such as name, email, phone number, credit card number
+Multilingual random text values generator. It's useful when you're developing a new project and need some pretty data for showcase. Inspired from the [Datafaker](https://github.com/datafaker-net/datafaker/) library. The plugin can help to generate:
+* "Lorem ipsum" (Fake Latin)
+* Quote (from movie, video game or fiction)
+* Name
+* Email
+* Phone number
+* Credit card number
 * Address
-* Country, state, city names
+* Country name
+* State name
+* City name
 
-More features will be added in future releases.
+多语言随机文本值生成器。 当您正在开发一个新项目并需要一些漂亮的数据来展示时，它很有用。 灵感来自 [Datafaker](https://github.com/datafaker-net/datafaker/) 库。 该插件可以帮助生成：
+* “Lorem ipsum”（假拉丁文）
+* 引用（来自电影、视频游戏或小说）
+* 名称
+* 电子邮件
+* 电话号码
+* 信用卡号码
+* 地址
+* 国家的名字
+* 国家名称
+* 城市名称
 
-Based on [Datafaker](https://github.com/datafaker-net/datafaker/) library.
+## Supported languages / 支持的语言
+
+* Arabic (العربية)
+* Armenian (հայերեն)
+* Belarusian (беларуский)
+* Bulgarian (български)
+* Catalan (català)
+* Catalan (Catalan)
+* Chinese (中国人)
+* Croatian (hrvatski)
+* Czech (čeština)
+* Danish (dansk)
+* Dutch (Nederlands)
+* English 
+* Ewe (Eʋegbe)
+* Finnish (suomi)
+* French (français)
+* German (Deutsch)
+* Hebrew (עברית)
+* Hungarian (magyar)
+* Indonesian (Indonesian)
+* Indonesian (Indonesia)
+* Italian (italiano)
+* Japanese (日本語)
+* Korean (한국어)
+* Latvian (latviešu)
+* Nepali (Nepali)
+* Norwegian (norsk)
+* Norwegian Bokmål (norsk bokmål)
+* Persian (فارسی)
+* Polish (polski)
+* Portuguese (português)
+* Russian (русский)
+* Slovak (slovenčina)
+* Spanish (español)
+* Swedish (svenska)
+* Thai (ไทย)
+* Turkish (Türkçe)
+* Ukrainian (українська)
+* Vietnamese (Tiếng Việt)
+
+## Feature requests
+Feature requests are [welcome](https://github.com/alx-mag/lorem/issues).
+
 <!-- Plugin description end -->
 
 ## Installation
