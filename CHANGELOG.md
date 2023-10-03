@@ -3,6 +3,19 @@
 # Lorem Changelog
 
 ## [Unreleased]
+
+## [1.0.0] - 2023-10-03
+### Added
+
+- Support for Intellij Platform 2023.2
+
+## [0.2.1] - 2023-01-06
+### Added
+
+- Support for Intellij Platform 2023.1
+
+
+## [0.2.0] - 2023-01-06
 ### Added
 
 - Locale settings
